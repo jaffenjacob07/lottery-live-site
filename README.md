@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Kerala Lottery Live
 
 Premium mobile-first Kerala State Lottery live results portal built with Next.js 15, Tailwind CSS 4, and Framer Motion.
@@ -52,3 +53,7 @@ src/
 ## Note
 
 Admin forms are UI-only demos. Connect to a database (e.g. Supabase, MongoDB) and API routes for production use.
+=======
+# lottery-live-site
+Modern Kerala lottery live result website
+>>>>>>> 78139034740f829ebd30cf5828b5485090f903ec
