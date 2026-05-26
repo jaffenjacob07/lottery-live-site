@@ -1,11 +1,12 @@
 import { HeroSection } from "@/components/home/HeroSection";
 import { CountdownTimer } from "@/components/home/CountdownTimer";
-import { ResultCard } from "@/components/home/ResultCard";
+import { LotteryResultsSection } from "@/components/home/LotteryResultsSection";
 import { SubscribeForm } from "@/components/home/SubscribeForm";
-import { lotteryResults } from "@/data/lottery";
-import { TrendingUp } from "lucide-react";
+import { fetchLotteryResults } from "@/lib/lottery-results";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { results, source } = await fetchLotteryResults();
+
   return (
     <>
       <HeroSection />
@@ -13,17 +14,7 @@ export default function HomePage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
         <div className="grid lg:grid-cols-3 gap-8 mb-12">
           <div className="lg:col-span-2">
-            <section id="results">
-              <div className="flex items-center gap-2 mb-6">
-                <TrendingUp className="h-6 w-6 text-accent-red" />
-                <h2 className="text-2xl font-black text-navy-900">Latest Results</h2>
-              </div>
-              <div className="grid sm:grid-cols-2 gap-5">
-                {lotteryResults.map((result, i) => (
-                  <ResultCard key={result.id} result={result} index={i} />
-                ))}
-              </div>
-            </section>
+            <LotteryResultsSection results={results} source={source} />
           </div>
           <div className="lg:col-span-1">
             <CountdownTimer />

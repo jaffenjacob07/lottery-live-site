@@ -1,5 +1,7 @@
 "use client";
 
+import { clientInitial } from "@/lib/motion-client";
+import { useMounted } from "@/lib/use-mounted";
 import { motion } from "framer-motion";
 import { Award, Medal } from "lucide-react";
 
@@ -16,10 +18,12 @@ export function PrizeCards({
   thirdPrize,
   consolationPrizes,
 }: PrizeCardsProps) {
+  const mounted = useMounted();
+
   return (
     <div className="space-y-4">
       <motion.div
-        initial={{ opacity: 0, y: 12 }}
+        initial={clientInitial(mounted, { opacity: 0, y: 12 })}
         animate={{ opacity: 1, y: 0 }}
         className="rounded-2xl gold-gradient p-[3px]"
       >
@@ -36,7 +40,7 @@ export function PrizeCards({
 
       <div className="grid sm:grid-cols-2 gap-4">
         <motion.div
-          initial={{ opacity: 0, x: -12 }}
+          initial={clientInitial(mounted, { opacity: 0, x: -12 })}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
           className="rounded-xl border-2 border-navy-200 bg-navy-50 p-5 text-center"
@@ -46,7 +50,7 @@ export function PrizeCards({
           <p className="text-xl font-bold text-navy-900 tracking-wide">{secondPrize}</p>
         </motion.div>
         <motion.div
-          initial={{ opacity: 0, x: 12 }}
+          initial={clientInitial(mounted, { opacity: 0, x: 12 })}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.15 }}
           className="rounded-xl border-2 border-accent-red/30 bg-red-50 p-5 text-center"

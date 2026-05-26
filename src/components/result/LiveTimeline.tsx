@@ -1,6 +1,8 @@
 "use client";
 
 import type { LiveUpdate } from "@/types/lottery";
+import { clientInitial } from "@/lib/motion-client";
+import { useMounted } from "@/lib/use-mounted";
 import { motion } from "framer-motion";
 import { AlertCircle, CheckCircle, Info } from "lucide-react";
 
@@ -17,6 +19,8 @@ const colors = {
 };
 
 export function LiveTimeline({ updates }: { updates: LiveUpdate[] }) {
+  const mounted = useMounted();
+
   return (
     <div className="rounded-2xl border border-navy-100 bg-white p-5 sm:p-6 card-shadow">
       <h3 className="font-bold text-navy-900 mb-5">Live Updates</h3>
@@ -26,8 +30,8 @@ export function LiveTimeline({ updates }: { updates: LiveUpdate[] }) {
           return (
             <motion.li
               key={update.id}
-              initial={{ opacity: 0, x: -8 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={clientInitial(mounted, { opacity: 0, x: -8 })}
+              whileInView={mounted ? { opacity: 1, x: 0 } : undefined}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
               className="relative pl-8"

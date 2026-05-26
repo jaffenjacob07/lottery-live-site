@@ -3,11 +3,14 @@
 import { homepageConfig, getFeaturedResult } from "@/data/lottery";
 import { LiveBadge } from "@/components/ui/LiveBadge";
 import { formatDate } from "@/lib/utils";
+import { clientInitial } from "@/lib/motion-client";
+import { useMounted } from "@/lib/use-mounted";
 import { motion } from "framer-motion";
 import { ArrowRight, MapPin } from "lucide-react";
 import Link from "next/link";
 
 export function HeroSection() {
+  const mounted = useMounted();
   const featured = getFeaturedResult();
 
   return (
@@ -23,7 +26,7 @@ export function HeroSection() {
       </div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 lg:py-16">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={clientInitial(mounted, { opacity: 0, y: 20 })}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="max-w-3xl"
@@ -45,7 +48,11 @@ export function HeroSection() {
           <div className="flex flex-wrap items-center gap-4 text-sm text-navy-300 mb-8">
             <span className="font-semibold text-white">{featured.drawNumber}</span>
             <span>·</span>
-            <span>{formatDate(featured.date)}</span>
+            <span suppressHydrationWarning>
+  {mounted && featured.date
+    ? formatDate(featured.date)
+    : "Today"}
+</span>
             <span className="flex items-center gap-1">
               <MapPin className="h-4 w-4 text-accent-red" />
               {featured.location}
@@ -69,7 +76,7 @@ export function HeroSection() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={clientInitial(mounted, { opacity: 0, scale: 0.95 })}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
           className="mt-8 sm:mt-10 inline-block rounded-2xl gold-gradient p-[2px]"
