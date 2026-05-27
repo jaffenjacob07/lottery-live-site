@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
-  const hasSession =
-    request.cookies.get("sb-access-token") ||
-    request.cookies.get("supabase-auth-token");
+export async function middleware(request: NextRequest) {
+  const hasSession = request.cookies
+    .getAll()
+    .some((cookie) =>
+      cookie.name.includes("sb-")
+    );
 
   if (
     request.nextUrl.pathname.startsWith("/admin") &&

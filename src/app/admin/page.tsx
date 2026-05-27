@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
@@ -12,7 +13,9 @@ import { BarChart3, FileText, Radio } from "lucide-react";
 import Link from "next/link";
 
 export default async function AdminPage() {
-  const supabase = await createClient();
+  const cookieStore = await cookies();
+
+  const supabase = createClient(cookieStore);
 
   const {
     data: { user },
@@ -23,9 +26,21 @@ export default async function AdminPage() {
   }
 
   const stats = [
-    { label: "Total Results", value: lotteryResults.length, icon: FileText },
-    { label: "Live Draws", value: 1, icon: Radio },
-    { label: "Page Views", value: "12.4K", icon: BarChart3 },
+    {
+      label: "Total Results",
+      value: lotteryResults.length,
+      icon: FileText,
+    },
+    {
+      label: "Live Draws",
+      value: 1,
+      icon: Radio,
+    },
+    {
+      label: "Page Views",
+      value: "12.4K",
+      icon: BarChart3,
+    },
   ];
 
   return (
