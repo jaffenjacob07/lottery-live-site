@@ -13,7 +13,7 @@ import { BarChart3, FileText, Radio } from "lucide-react";
 import Link from "next/link";
 
 export default async function AdminPage() {
-  const cookieStore = await cookies();
+  const cookieStore = cookies();
 
   const supabase = createClient(cookieStore);
 
