@@ -1,12 +1,10 @@
 export function formatDate(date: string) {
-  const d = new Date(date);
-
-  return d.toLocaleDateString("en-GB", {
+  return new Date(date).toLocaleDateString("en-IN", {
     weekday: "long",
     day: "2-digit",
-    month: "short",
+    month: "long",
     year: "numeric",
-    timeZone: "UTC",
+    timeZone: "Asia/Kolkata",
   });
 }
 
