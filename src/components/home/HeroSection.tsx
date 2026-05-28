@@ -45,7 +45,9 @@ export function HeroSection() {
           <div className="flex flex-wrap items-center gap-4 text-sm text-navy-300 mb-8">
             <span className="font-semibold text-white">{featured.drawNumber}</span>
             <span>·</span>
-            <span>{featured.date ? formatDate(featured.date) : "Today"}</span>
+            <span suppressHydrationWarning>
+  {featured.date ? formatDate(featured.date) : "Today"}
+</span>
             <span className="flex items-center gap-1">
               <MapPin className="h-4 w-4 text-accent-red" />
               {featured.location}
