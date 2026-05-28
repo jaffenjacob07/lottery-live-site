@@ -1,13 +1,10 @@
 "use client";
 
-import { clientInitial } from "@/lib/motion-client";
-import { useMounted } from "@/lib/use-mounted";
 import { motion } from "framer-motion";
 import { Search, Ticket } from "lucide-react";
 import { useState } from "react";
 
 export function TicketChecker() {
-  const mounted = useMounted();
   const [ticket, setTicket] = useState("");
   const [message, setMessage] = useState<string | null>(null);
 
@@ -24,8 +21,8 @@ export function TicketChecker() {
 
   return (
     <motion.div
-      initial={clientInitial(mounted, { opacity: 0, y: 12 })}
-      whileInView={mounted ? { opacity: 1, y: 0 } : undefined}
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       className="rounded-2xl border border-navy-100 bg-gradient-to-br from-navy-50 to-white p-5 sm:p-6 card-shadow"
     >

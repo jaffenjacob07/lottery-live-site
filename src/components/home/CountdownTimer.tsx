@@ -1,8 +1,6 @@
 "use client";
 
 import { homepageConfig } from "@/data/lottery";
-import { clientInitial } from "@/lib/motion-client";
-import { useMounted } from "@/lib/use-mounted";
 import { motion } from "framer-motion";
 import { Clock } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -14,8 +12,6 @@ interface TimeLeft {
   seconds: number;
 }
 
-const EMPTY_TIME: TimeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
-
 function calcTimeLeft(target: number): TimeLeft {
   const diff = Math.max(0, target - Date.now());
   return {
@@ -26,20 +22,12 @@ function calcTimeLeft(target: number): TimeLeft {
   };
 }
 
-function TimeBlock({
-  value,
-  label,
-  mounted,
-}: {
-  value: number;
-  label: string;
-  mounted: boolean;
-}) {
+function TimeBlock({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center">
       <motion.div
         key={value}
-        initial={clientInitial(mounted, { y: -8, opacity: 0 })}
+        initial={{ y: -8, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         className="w-14 sm:w-16 h-14 sm:h-16 rounded-xl bg-navy-900 text-white flex items-center justify-center text-xl sm:text-2xl font-bold tabular-nums"
       >
@@ -54,8 +42,12 @@ function TimeBlock({
 
 export function CountdownTimer() {
   const target = homepageConfig.nextDrawTimestamp;
-  const mounted = useMounted();
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(EMPTY_TIME);
+  const [mounted, setMounted] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(() => calcTimeLeft(target));
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!mounted) return;
@@ -78,10 +70,10 @@ export function CountdownTimer() {
         </div>
       </div>
       <div className="flex justify-between gap-2 sm:gap-4">
-        <TimeBlock value={timeLeft.days} label="Days" mounted={mounted} />
-        <TimeBlock value={timeLeft.hours} label="Hours" mounted={mounted} />
-        <TimeBlock value={timeLeft.minutes} label="Mins" mounted={mounted} />
-        <TimeBlock value={timeLeft.seconds} label="Secs" mounted={mounted} />
+        <TimeBlock value={timeLeft.days} label="Days" />
+        <TimeBlock value={timeLeft.hours} label="Hours" />
+        <TimeBlock value={timeLeft.minutes} label="Mins" />
+        <TimeBlock value={timeLeft.seconds} label="Secs" />
       </div>
     </div>
   );

@@ -1,16 +1,13 @@
 "use client";
 
-import { clientInitial } from "@/lib/motion-client";
-import { useMounted } from "@/lib/use-mounted";
 import { motion } from "framer-motion";
 
 export function LiveBadge({ size = "md" }: { size?: "sm" | "md" }) {
-  const mounted = useMounted();
   const sizeClasses = size === "sm" ? "px-2 py-0.5 text-[10px]" : "px-3 py-1 text-xs";
 
   return (
     <motion.span
-      initial={clientInitial(mounted, { scale: 0.9, opacity: 0 })}
+      initial={{ scale: 0.9, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       className={`inline-flex items-center gap-1.5 rounded font-bold uppercase tracking-wider text-white bg-accent-red ${sizeClasses}`}
     >

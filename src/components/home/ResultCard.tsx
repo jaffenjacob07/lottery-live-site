@@ -3,8 +3,6 @@
 import type { LotteryResult } from "@/types/lottery";
 import { LiveBadge } from "@/components/ui/LiveBadge";
 import { formatDate } from "@/lib/utils";
-import { clientInitial } from "@/lib/motion-client";
-import { useMounted } from "@/lib/use-mounted";
 import { motion } from "framer-motion";
 import { ArrowRight, MapPin, Trophy } from "lucide-react";
 import Link from "next/link";
@@ -16,12 +14,10 @@ interface ResultCardProps {
 }
 
 export function ResultCard({ result, index = 0, featured = false }: ResultCardProps) {
-  const mounted = useMounted();
-
   return (
     <motion.article
-      initial={clientInitial(mounted, { opacity: 0, y: 16 })}
-      whileInView={mounted ? { opacity: 1, y: 0 } : undefined}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.08 }}
       className={`group rounded-2xl border bg-white card-shadow hover:border-accent-red/30 hover:shadow-lg transition-all overflow-hidden ${

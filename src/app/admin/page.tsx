@@ -1,7 +1,3 @@
-import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
-import { createClient } from "@/utils/supabase/server";
-
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { CountdownSettings } from "@/components/admin/CountdownSettings";
 import { HomepageSettings } from "@/components/admin/HomepageSettings";
@@ -12,19 +8,7 @@ import { lotteryResults } from "@/data/lottery";
 import { BarChart3, FileText, Radio } from "lucide-react";
 import Link from "next/link";
 
-export default async function AdminPage() {
-  const cookieStore = cookies();
-
-  const supabase = createClient(cookieStore);
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/login");
-  }
-
+export default function AdminPage() {
   const stats = [
     {
       label: "Total Results",

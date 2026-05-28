@@ -1,25 +1,9 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
-export async function middleware(request: NextRequest) {
-  const hasSession = request.cookies
-    .getAll()
-    .some((cookie) =>
-      cookie.name.includes("sb-")
-    );
-
-  if (
-    request.nextUrl.pathname.startsWith("/admin") &&
-    !hasSession
-  ) {
-    return NextResponse.redirect(
-      new URL("/login", request.url)
-    );
-  }
-
+export function middleware() {
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: [],
 };

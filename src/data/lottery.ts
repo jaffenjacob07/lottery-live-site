@@ -12,7 +12,6 @@ export const siteConfig = {
   url: "https://keralalotterylive.vercel.app",
   description:
     "Get Kerala State Lottery live results, winning numbers, draw updates, and PDF downloads. Fast, mobile-first, and updated in real time.",
-  copyrightYear: 2026,
 };
 
 export const homepageConfig: HomepageConfig = {
