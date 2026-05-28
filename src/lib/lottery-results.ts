@@ -30,7 +30,7 @@ export function mapLotteryResultRow(row: LotteryResultRow): LotteryResult {
     slug: row.slug,
     name: row.name,
     drawNumber: row.draw_number,
-    drawDate: row.draw_date,
+    date: row.draw_date,
     firstPrize: row.first_prize,
     location: row.location,
     isLive: row.is_live,
