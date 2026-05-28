@@ -1,41 +1,56 @@
 import { AuthorSection } from "@/components/result/AuthorSection";
 import { DownloadPdfButton } from "@/components/result/DownloadPdfButton";
-import { LiveTimeline } from "@/components/result/LiveTimeline";
 import { LowerPrizeChips } from "@/components/result/LowerPrizeChips";
 import { PrizeCards } from "@/components/result/PrizeCards";
-import { RelatedArticles } from "@/components/result/RelatedArticles";
 import { ShareButtons } from "@/components/result/ShareButtons";
 import { TicketChecker } from "@/components/result/TicketChecker";
-import { TopicTags } from "@/components/result/TopicTags";
 import { YesterdayCard } from "@/components/result/YesterdayCard";
 import { LiveBadge } from "@/components/ui/LiveBadge";
+
 import {
-  getResultBySlug,
-  liveUpdates,
-  lotteryResults,
-  relatedArticles,
-  topicTags,
-} from "@/data/lottery";
+  fetchLotteryResults,
+  getLotteryResultBySlug,
+} from "@/lib/lottery-results";
+
 import { formatDate, formatUpdatedTime } from "@/lib/utils";
+
 import type { Metadata } from "next";
+
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MapPin } from "lucide-react";
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = {
+  params: Promise<{ slug: string }>;
+};
 
 export async function generateStaticParams() {
-  return lotteryResults.map((r) => ({ slug: r.slug }));
+  const { results } = await fetchLotteryResults();
+
+  return results.map((r) => ({
+    slug: r.slug,
+  }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
   const { slug } = await params;
-  const result = getResultBySlug(slug);
-  if (!result) return { title: "Result Not Found" };
+
+  const result = await getLotteryResultBySlug(slug);
+
+  if (!result) {
+    return {
+      title: "Result Not Found",
+    };
+  }
+
   return {
-    title: `${result.name} ${result.drawNumber} Live Result`,
-    description: `Kerala ${result.name} ${result.drawNumber} live result. First prize: ${result.firstPrize}. Draw date: ${result.date}.`,
+    title: `${result.name} ${result.drawNumber} result today | First prize ${result.firstPrize}`,
+
+    description: `Kerala lottery ${result.name} ${result.drawNumber} live result today. First prize winner ${result.firstPrize}. Check full winner list, draw updates and prize details.`,
+
     openGraph: {
       title: `${result.name} ${result.drawNumber} Live Result`,
       images: [result.heroImage],
@@ -43,9 +58,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ResultDetailPage({ params }: Props) {
+export default async function ResultDetailPage({
+  params,
+}: Props) {
   const { slug } = await params;
-  const result = getResultBySlug(slug);
+
+  const result = await getLotteryResultBySlug(slug);
+
   if (!result) notFound();
 
   const title = `${result.name} ${result.drawNumber} Live Result`;
@@ -59,20 +78,29 @@ export default async function ResultDetailPage({ params }: Props) {
               <Link href="/" className="hover:text-accent-red">
                 Home
               </Link>
+
               <span className="mx-2">/</span>
-              <span className="text-navy-800">{result.drawNumber}</span>
+
+              <span className="text-navy-800">
+                {result.drawNumber}
+              </span>
             </nav>
+
             <div className="flex flex-wrap items-center gap-3 mb-3">
               {result.isLive && <LiveBadge />}
+
               <span className="text-sm text-navy-500">
                 Updated {formatUpdatedTime(result.updatedAt)}
               </span>
             </div>
+
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-navy-900 mb-3">
               {title}
             </h1>
+
             <div className="flex flex-wrap gap-4 text-sm text-navy-600">
               <span>{formatDate(result.date)}</span>
+
               <span className="flex items-center gap-1">
                 <MapPin className="h-4 w-4 text-accent-red" />
                 {result.location}
@@ -82,7 +110,11 @@ export default async function ResultDetailPage({ params }: Props) {
         </div>
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
-          <AuthorSection name={result.author} role={result.authorRole} />
+          <AuthorSection
+            name={result.author}
+            role={result.authorRole}
+          />
+
           <div className="my-6">
             <ShareButtons title={title} />
           </div>
@@ -96,9 +128,13 @@ export default async function ResultDetailPage({ params }: Props) {
               priority
               sizes="(max-width: 896px) 100vw, 896px"
             />
+
             <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent" />
+
             <div className="absolute bottom-4 left-4 right-4">
-              <p className="text-white font-bold text-lg sm:text-xl">{result.drawNumber}</p>
+              <p className="text-white font-bold text-lg sm:text-xl">
+                {result.drawNumber}
+              </p>
             </div>
           </div>
 
@@ -110,14 +146,18 @@ export default async function ResultDetailPage({ params }: Props) {
                 thirdPrize={result.thirdPrize}
                 consolationPrizes={result.consolationPrizes}
               />
-              <LowerPrizeChips numbers={result.lowerPrizes} />
+
+              <LowerPrizeChips
+                numbers={result.lowerPrizes}
+              />
+
               <TicketChecker />
-              <RelatedArticles articles={relatedArticles} />
-              <TopicTags tags={topicTags} />
             </div>
+
             <aside className="space-y-6">
-              <LiveTimeline updates={liveUpdates} />
-              <YesterdayCard yesterdaySlug={result.yesterdaySlug} />
+              <YesterdayCard
+                yesterdaySlug={result.yesterdaySlug}
+              />
             </aside>
           </div>
         </div>

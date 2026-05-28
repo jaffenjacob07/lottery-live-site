@@ -1,5 +1,5 @@
 import { lotteryResults as fallbackResults } from "@/data/lottery";
-import { createServerSupabaseClient } from "@/lib/supabase";
+import { createClient } from "@supabase/supabase-js";
 import type { LotteryResult } from "@/types/lottery";
 
 export interface LotteryResultRow {
@@ -12,11 +12,17 @@ export interface LotteryResultRow {
   created_at: string;
 }
 
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
 export function mapLotteryResultRow(
   row: LotteryResultRow,
 ): LotteryResult {
   return {
     id: row.id,
+
     slug: row.draw_no.toLowerCase(),
 
     name: row.lottery_name,
@@ -56,8 +62,6 @@ export async function fetchLotteryResults(): Promise<{
   error?: string;
 }> {
   try {
-    const supabase = await createServerSupabaseClient();
-
     const { data, error } = await supabase
       .from("lottery_results")
       .select("*")
@@ -98,5 +102,21 @@ export async function fetchLotteryResults(): Promise<{
       source: "fallback",
       error: message,
     };
+  }
+}
+
+export async function getLotteryResultBySlug(slug: string) {
+  try {
+    const { data } = await supabase
+      .from("lottery_results")
+      .select("*")
+      .eq("draw_no", slug.toUpperCase())
+      .single();
+
+    if (!data) return null;
+
+    return mapLotteryResultRow(data);
+  } catch {
+    return null;
   }
 }
