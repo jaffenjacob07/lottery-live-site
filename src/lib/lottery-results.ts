@@ -4,12 +4,36 @@ import type { LotteryResult } from "@/types/lottery";
 
 export interface LotteryResultRow {
   id: string;
+
   lottery_name: string;
+
   draw_no: string;
+
   first_prize: string;
+
+  second_prize?: string | null;
+
+  third_prize?: string | null;
+
+  consolation_prize?: string | null;
+
+  lower_prizes?: any;
+
+  article_content?: string | null;
+
+  meta_title?: string | null;
+
+  meta_description?: string | null;
+
+  pdf_url?: string | null;
+
   location: string;
+
   is_live: boolean;
+
   created_at: string;
+
+  draw_date?: string | null;
 }
 
 const supabase = createClient(
@@ -18,7 +42,7 @@ const supabase = createClient(
 );
 
 export function mapLotteryResultRow(
-  row: LotteryResultRow,
+  row: LotteryResultRow
 ): LotteryResult {
   return {
     id: row.id,
@@ -29,9 +53,27 @@ export function mapLotteryResultRow(
 
     drawNumber: row.draw_no,
 
-    date: row.created_at,
+    date: row.draw_date || row.created_at,
 
     firstPrize: row.first_prize,
+
+    secondPrize: row.second_prize || "",
+
+    thirdPrize: row.third_prize || "",
+
+    consolationPrize: row.consolation_prize
+      ? row.consolation_prize.split(",")
+      : [],
+
+    lowerPrizes: row.lower_prizes || {},
+
+    articleContent: row.article_content || "",
+
+    metaTitle: row.meta_title || "",
+
+    metaDescription: row.meta_description || "",
+
+    pdfUrl: row.pdf_url || "",
 
     location: row.location,
 
@@ -45,14 +87,6 @@ export function mapLotteryResultRow(
 
     heroImage:
       "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?w=1200&q=80",
-
-    secondPrize: "",
-
-    thirdPrize: "",
-
-    consolationPrizes: [],
-
-    lowerPrizes: [],
   };
 }
 
@@ -86,7 +120,7 @@ export async function fetchLotteryResults(): Promise<{
 
     return {
       results: (data as LotteryResultRow[]).map(
-        mapLotteryResultRow,
+        mapLotteryResultRow
       ),
 
       source: "supabase",

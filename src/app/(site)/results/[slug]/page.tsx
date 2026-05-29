@@ -50,12 +50,17 @@ export async function generateMetadata({
   }
 
   return {
-    title: `Kerala Lottery ${result.name} ${result.drawNumber} Result Today`,
+    title:
+      result.metaTitle ||
+      `Kerala Lottery ${result.name} ${result.drawNumber} Result Today`,
 
-    description: `Kerala Lottery ${result.name} ${result.drawNumber} result today. First prize winning number ${result.firstPrize}. Check complete live winners list and Kerala lottery result updates.`,
+    description:
+      result.metaDescription ||
+      `Kerala Lottery ${result.name} ${result.drawNumber} result today. First prize winning number ${result.firstPrize}.`,
 
     openGraph: {
-      title: `${result.name} ${result.drawNumber} Live Result`,
+      title: result.metaTitle || `${result.name} ${result.drawNumber} Live Result`,
+      description: result.metaDescription || "",
       images: [result.heroImage],
     },
   };
@@ -72,35 +77,20 @@ export default async function ResultDetailPage({
 
   const formattedDate = formatDate(result.date);
 
-  const pageTitle = `Kerala Lottery ${result.name} ${result.drawNumber} Result Today: ₹1 Crore First Prize ${result.firstPrize} | Check Full Winners List`;
+  const pageTitle =
+    result.metaTitle ||
+    `Kerala Lottery ${result.name} ${result.drawNumber} Result Today`;
 
-  const seoDescription = `Kerala State Lottery ${result.name} ${result.drawNumber} result declared today. First prize winning number is ${result.firstPrize}. Check complete winners list, live updates, prize structure and PDF results.`;
-
-  const articleIntro = `
-The Kerala State Lottery Department has officially announced the results of the ${result.name} ${result.drawNumber} lottery draw today.
-
-The live draw was conducted in ${result.location} on ${formattedDate}.
-
-Participants can now check the first prize winning number, second prize, third prize, consolation prizes, and full winners list online.
-`;
-
-  const articleBody = `
-The first prize for the ${result.drawNumber} draw is ${result.firstPrize}.
-
-Winners must verify their ticket numbers using the official Kerala Government Gazette result publication.
-
-Prize claims should be submitted within 30 days from the draw date.
-
-Winners of major prizes are required to submit valid ID proof including Aadhaar card or PAN card while claiming rewards.
-
-The Kerala lottery department conducts transparent live draws daily under government supervision.
-`;
+  const articleContent =
+    result.articleContent ||
+    `Kerala Lottery ${result.name} ${result.drawNumber} result declared today.`;
 
   return (
     <>
       <article>
         <div className="bg-navy-50 border-b border-navy-100">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+
             <nav className="text-sm text-navy-500 mb-4">
               <Link
                 href="/"
@@ -125,7 +115,7 @@ The Kerala lottery department conducts transparent live draws daily under govern
               </span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-navy-900 mb-3 leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-5xl font-black text-navy-900 mb-4 leading-tight">
               {pageTitle}
             </h1>
 
@@ -141,6 +131,7 @@ The Kerala lottery department conducts transparent live draws daily under govern
         </div>
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+
           <AuthorSection
             name={result.author}
             role={result.authorRole}
@@ -170,44 +161,52 @@ The Kerala lottery department conducts transparent live draws daily under govern
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
+
             <div className="lg:col-span-2 space-y-8">
 
               <section className="space-y-6">
+
                 <div className="bg-white rounded-2xl border border-navy-100 p-6 card-shadow">
 
-                  <h2 className="text-2xl font-bold text-navy-900 mb-4">
+                  <h2 className="text-2xl font-bold text-navy-900 mb-5">
                     {result.name} {result.drawNumber} Kerala Lottery Result Today
                   </h2>
 
-                  <p className="text-navy-700 leading-8 whitespace-pre-line">
-                    {articleIntro}
-                  </p>
+                  <div className="prose prose-lg max-w-none prose-headings:text-navy-900 prose-p:text-navy-700">
+                    {articleContent
+                      .split("\n")
+                      .filter(Boolean)
+                      .map((paragraph, index) => (
+                        <p
+                          key={index}
+                          className="leading-8 mb-5"
+                        >
+                          {paragraph}
+                        </p>
+                      ))}
+                  </div>
 
-                  <div className="mt-6">
-                    <h3 className="text-xl font-bold text-navy-900 mb-3">
+                  <div className="mt-8">
+
+                    <h3 className="text-xl font-bold text-navy-900 mb-4">
                       First Prize Winning Number
                     </h3>
 
-                    <div className="bg-navy-900 text-white rounded-2xl p-6 text-center">
-                      <p className="text-sm uppercase tracking-widest text-gold-300 mb-2">
-                        First Prize
-                      </p>
+                    <div className="rounded-3xl gold-gradient p-[2px]">
 
-                      <p className="text-4xl font-black tracking-widest">
-                        {result.firstPrize}
-                      </p>
+                      <div className="bg-navy-950 rounded-[22px] p-8 text-center">
+
+                        <p className="text-xs uppercase tracking-[0.3em] text-gold-300 mb-3">
+                          1st Prize — ₹1 Crore
+                        </p>
+
+                        <p className="text-5xl font-black text-white tracking-[0.2em]">
+                          {result.firstPrize}
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="mt-6">
-                    <h3 className="text-xl font-bold text-navy-900 mb-3">
-                      Kerala Lottery Winners List
-                    </h3>
-
-                    <p className="text-navy-700 leading-8 whitespace-pre-line">
-                      {articleBody}
-                    </p>
-                  </div>
                 </div>
               </section>
 
@@ -215,7 +214,7 @@ The Kerala lottery department conducts transparent live draws daily under govern
                 firstPrize={result.firstPrize}
                 secondPrize={result.secondPrize}
                 thirdPrize={result.thirdPrize}
-                consolationPrizes={result.consolationPrizes}
+                consolationPrizes={result.consolationPrize}
               />
 
               <LowerPrizeChips
@@ -226,9 +225,11 @@ The Kerala lottery department conducts transparent live draws daily under govern
             </div>
 
             <aside className="space-y-6">
+
               <YesterdayCard
                 yesterdaySlug={result.yesterdaySlug}
               />
+
             </aside>
           </div>
         </div>
