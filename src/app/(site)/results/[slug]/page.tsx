@@ -59,8 +59,12 @@ export async function generateMetadata({
       `Kerala Lottery ${result.name} ${result.drawNumber} result today. First prize winning number ${result.firstPrize}.`,
 
     openGraph: {
-      title: result.metaTitle || `${result.name} ${result.drawNumber} Live Result`,
+      title:
+        result.metaTitle ||
+        `${result.name} ${result.drawNumber} Live Result`,
+
       description: result.metaDescription || "",
+
       images: [result.heroImage],
     },
   };
@@ -214,7 +218,7 @@ export default async function ResultDetailPage({
                 firstPrize={result.firstPrize}
                 secondPrize={result.secondPrize}
                 thirdPrize={result.thirdPrize}
-                consolationPrizes={result.consolationPrize}
+                consolationPrizes={result.consolationPrizes}
               />
 
               <LowerPrizeChips
@@ -222,6 +226,7 @@ export default async function ResultDetailPage({
               />
 
               <TicketChecker />
+
             </div>
 
             <aside className="space-y-6">
