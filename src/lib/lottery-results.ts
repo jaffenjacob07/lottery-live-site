@@ -61,7 +61,7 @@ export function mapLotteryResultRow(
 
     thirdPrize: row.third_prize || "",
 
-    consolationPrize: row.consolation_prize
+    consolationPrizes: row.consolation_prize
       ? row.consolation_prize.split(",")
       : [],
 
