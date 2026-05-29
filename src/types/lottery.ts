@@ -1,22 +1,45 @@
 export interface LotteryResult {
   id: string;
+
   slug: string;
+
   name: string;
+
   drawNumber: string;
+
   date: string;
+
   firstPrize: string;
+
   location: string;
+
   isLive: boolean;
+
   updatedAt: string;
+
   author: string;
+
   authorRole: string;
+
   heroImage: string;
+
   secondPrize: string;
+
   thirdPrize: string;
+
   consolationPrizes: string[];
-  lowerPrizes: string[];
+
+  lowerPrizes: any;
+
   pdfUrl?: string;
+
   yesterdaySlug?: string;
+
+  articleContent?: string;
+
+  metaTitle?: string;
+
+  metaDescription?: string;
 }
 
 export interface LiveUpdate {
