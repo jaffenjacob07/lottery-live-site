@@ -155,7 +155,7 @@ export async function generateMetadata({
                 <div className="bg-white rounded-2xl border border-navy-100 p-6 card-shadow">
 
                   <h2 className="text-2xl font-bold text-navy-900 mb-5">
-                    Live Kerala Lottery Result Updates
+                  {result.name} {result.drawNumber} Kerala Lottery Result Today
                   </h2>
 
                   <div className="prose prose-lg max-w-none prose-headings:text-navy-900 prose-p:text-navy-700">
