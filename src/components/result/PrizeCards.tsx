@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { Medal } from "lucide-react";
 
 interface PrizeCardsProps {
-  firstPrize: string;
   secondPrize?: string | null;
   thirdPrize?: string | null;
   consolationPrizes?: string[] | null;

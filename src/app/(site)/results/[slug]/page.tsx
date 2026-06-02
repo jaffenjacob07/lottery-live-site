@@ -194,11 +194,10 @@ export default async function ResultDetailPage({
               </section>
 
               <PrizeCards
-                firstPrize={result.firstPrize}
                 secondPrize={result.secondPrize}
                 thirdPrize={result.thirdPrize}
                 consolationPrizes={result.consolationPrizes}
-              />
+            />
 
               <LowerPrizeChips
                 numbers={result.lowerPrizes}
