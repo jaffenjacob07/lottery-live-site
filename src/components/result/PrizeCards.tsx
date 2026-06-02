@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Award, Medal } from "lucide-react";
+import { Medal } from "lucide-react";
 
 interface PrizeCardsProps {
   firstPrize: string;
@@ -11,7 +11,6 @@ interface PrizeCardsProps {
 }
 
 export function PrizeCards({
-  firstPrize,
   secondPrize,
   thirdPrize,
   consolationPrizes = [],
@@ -19,28 +18,10 @@ export function PrizeCards({
   return (
     <div className="space-y-4">
 
-      {/* FIRST PRIZE */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl gold-gradient p-[3px]"
-      >
-        <div className="rounded-2xl bg-navy-950 px-6 py-8 text-center">
-          <Award className="h-8 w-8 text-gold-400 mx-auto mb-3" />
-
-          <p className="text-xs uppercase tracking-widest text-navy-300 mb-2">
-            1st Prize — ₹1 Crore
-          </p>
-
-          <p className="text-3xl sm:text-4xl font-black text-white tracking-widest">
-            {firstPrize}
-          </p>
-        </div>
-      </motion.div>
-
       {/* SECOND + THIRD */}
       <div className="grid sm:grid-cols-2 gap-4">
 
+        {/* SECOND PRIZE */}
         <motion.div
           initial={{ opacity: 0, x: -12 }}
           animate={{ opacity: 1, x: 0 }}
@@ -58,6 +39,7 @@ export function PrizeCards({
           </p>
         </motion.div>
 
+        {/* THIRD PRIZE */}
         <motion.div
           initial={{ opacity: 0, x: 12 }}
           animate={{ opacity: 1, x: 0 }}
@@ -74,6 +56,7 @@ export function PrizeCards({
             {thirdPrize || "Not Available"}
           </p>
         </motion.div>
+
       </div>
 
       {/* CONSOLATION */}
@@ -94,8 +77,10 @@ export function PrizeCards({
               </span>
             ))}
           </div>
+
         </div>
       )}
+
     </div>
   );
 }
