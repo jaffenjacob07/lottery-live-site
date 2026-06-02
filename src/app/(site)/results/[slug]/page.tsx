@@ -19,7 +19,6 @@ import {
 
 import type { Metadata } from "next";
 
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MapPin } from "lucide-react";
@@ -40,6 +39,7 @@ export async function generateMetadata({
   params,
 }: Props): Promise<Metadata> {
   const { slug } = await params;
+
   const result = await getLotteryResultBySlug(slug);
 
   if (!result) {
@@ -47,38 +47,38 @@ export async function generateMetadata({
       title: "Result Not Found",
     };
   }
-  
+
   return {
     title:
       result.metaTitle ||
       `Kerala Lottery ${result.name} ${result.drawNumber} Result Today`,
-  
+
     description:
       result.metaDescription ||
       `Kerala Lottery ${result.name} ${result.drawNumber} result today. First prize winning number ${result.firstPrize}.`,
-  
+
     openGraph: {
       title:
         result.metaTitle ||
         `${result.name} ${result.drawNumber} Live Result`,
-  
+
       description: result.metaDescription || "",
-  
+
       images: [result.heroImage],
     },
   };
-  }
-  
-  export default async function ResultDetailPage({
-    params,
-  }: Props) {
-    const { slug } = await params;
-  
-    const result = await getLotteryResultBySlug(slug);
-  
-    if (!result) notFound();
-  
-    const formattedDate = formatDate(result.date);
+}
+
+export default async function ResultDetailPage({
+  params,
+}: Props) {
+  const { slug } = await params;
+
+  const result = await getLotteryResultBySlug(slug);
+
+  if (!result) notFound();
+
+  const formattedDate = formatDate(result.date);
 
   const pageTitle =
     result.metaTitle ||
@@ -144,8 +144,6 @@ export async function generateMetadata({
             <ShareButtons title={pageTitle} />
           </div>
 
-          
-
           <div className="grid lg:grid-cols-3 gap-8">
 
             <div className="lg:col-span-2 space-y-8">
@@ -155,7 +153,7 @@ export async function generateMetadata({
                 <div className="bg-white rounded-2xl border border-navy-100 p-6 card-shadow">
 
                   <h2 className="text-2xl font-bold text-navy-900 mb-5">
-                  {result.name} {result.drawNumber} Kerala Lottery Result Today
+                    {result.name} {result.drawNumber} Kerala Lottery Result Today
                   </h2>
 
                   <div className="prose prose-lg max-w-none prose-headings:text-navy-900 prose-p:text-navy-700">
@@ -172,28 +170,27 @@ export async function generateMetadata({
                       ))}
                   </div>
 
-                  <div className="mt-8">
-
-                    <h3 className="text-xl font-bold text-navy-900 mb-4">
-                      First Prize Winning Number
-                    </h3>
+                  <div className="mt-12 space-y-6">
 
                     <div className="rounded-3xl gold-gradient p-[2px]">
 
                       <div className="bg-navy-950 rounded-[22px] p-8 text-center">
 
                         <p className="text-xs uppercase tracking-[0.3em] text-gold-300 mb-3">
-                          1st Prize — ₹1 Crore
+                          FIRST PRIZE • ₹1 CRORE
                         </p>
 
                         <p className="text-5xl font-black text-white tracking-[0.2em]">
                           {result.firstPrize}
                         </p>
+
                       </div>
                     </div>
+
                   </div>
 
                 </div>
+
               </section>
 
               <PrizeCards
@@ -218,6 +215,7 @@ export async function generateMetadata({
               />
 
             </aside>
+
           </div>
         </div>
       </article>
