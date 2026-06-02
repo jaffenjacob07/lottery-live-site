@@ -32,7 +32,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen antialiased">{children}</body>
-    </html>
+  <head>
+  <meta name="google-site-verification" content="K5zJaWpRSt9JcfXSzc3Fx0E2aFs3x4YlwH7pcMppmGs" />
+  </head>
+
+  <body className="min-h-screen antialiased">
+    {children}
+  </body>
+</html>
   );
 }
