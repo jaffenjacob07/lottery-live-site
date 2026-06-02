@@ -40,7 +40,6 @@ export async function generateMetadata({
   params,
 }: Props): Promise<Metadata> {
   const { slug } = await params;
-
   const result = await getLotteryResultBySlug(slug);
 
   if (!result) {
@@ -48,38 +47,38 @@ export async function generateMetadata({
       title: "Result Not Found",
     };
   }
-
+  
   return {
     title:
       result.metaTitle ||
       `Kerala Lottery ${result.name} ${result.drawNumber} Result Today`,
-
+  
     description:
       result.metaDescription ||
       `Kerala Lottery ${result.name} ${result.drawNumber} result today. First prize winning number ${result.firstPrize}.`,
-
+  
     openGraph: {
       title:
         result.metaTitle ||
         `${result.name} ${result.drawNumber} Live Result`,
-
+  
       description: result.metaDescription || "",
-
+  
       images: [result.heroImage],
     },
   };
-}
-
-export default async function ResultDetailPage({
-  params,
-}: Props) {
-  const { slug } = await params;
-
-  const result = await getLotteryResultBySlug(slug);
-
-  if (!result) notFound();
-
-  const formattedDate = formatDate(result.date);
+  }
+  
+  export default async function ResultDetailPage({
+    params,
+  }: Props) {
+    const { slug } = await params;
+  
+    const result = await getLotteryResultBySlug(slug);
+  
+    if (!result) notFound();
+  
+    const formattedDate = formatDate(result.date);
 
   const pageTitle =
     result.metaTitle ||

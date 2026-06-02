@@ -27,6 +27,8 @@ export interface LotteryResultRow {
 
   pdf_url?: string | null;
 
+  seo_slug?: string | null;
+
   location: string;
 
   is_live: boolean;
@@ -47,7 +49,9 @@ export function mapLotteryResultRow(
   return {
     id: row.id,
 
-    slug: row.draw_no.toLowerCase(),
+    slug:
+      row.seo_slug ||
+      row.draw_no.toLowerCase(),
 
     name: row.lottery_name,
 
@@ -144,7 +148,7 @@ export async function getLotteryResultBySlug(slug: string) {
     const { data } = await supabase
       .from("lottery_results")
       .select("*")
-      .eq("draw_no", slug.toUpperCase())
+      .eq("seo_slug", slug)
       .single();
 
     if (!data) return null;
