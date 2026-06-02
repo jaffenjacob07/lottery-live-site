@@ -144,24 +144,7 @@ export async function generateMetadata({
             <ShareButtons title={pageTitle} />
           </div>
 
-          <div className="relative aspect-[21/9] rounded-2xl overflow-hidden mb-8 card-shadow">
-            <Image
-              src={result.heroImage}
-              alt={pageTitle}
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 896px) 100vw, 896px"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent" />
-
-            <div className="absolute bottom-4 left-4 right-4">
-              <p className="text-white font-bold text-lg sm:text-xl">
-                {result.drawNumber}
-              </p>
-            </div>
-          </div>
+          
 
           <div className="grid lg:grid-cols-3 gap-8">
 
@@ -172,7 +155,7 @@ export async function generateMetadata({
                 <div className="bg-white rounded-2xl border border-navy-100 p-6 card-shadow">
 
                   <h2 className="text-2xl font-bold text-navy-900 mb-5">
-                    {result.name} {result.drawNumber} Kerala Lottery Result Today
+                    Live Kerala Lottery Result Updates
                   </h2>
 
                   <div className="prose prose-lg max-w-none prose-headings:text-navy-900 prose-p:text-navy-700">
