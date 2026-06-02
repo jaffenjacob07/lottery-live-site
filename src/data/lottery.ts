@@ -9,7 +9,7 @@ import type {
 export const siteConfig = {
   name: "Kerala Lottery Live",
   tagline: "Official Style Live Results Portal",
-  url: "https://keralalotterylive.vercel.app",
+  url: "https://keralaliveresults.in",
   description:
     "Get Kerala State Lottery live results, winning numbers, draw updates, and PDF downloads. Fast, mobile-first, and updated in real time.",
 };
