@@ -15,6 +15,18 @@ export interface LotteryResultRow {
 
   third_prize?: string | null;
 
+  fourth_prize?: string | null;
+
+  fifth_prize?: string | null;
+
+  sixth_prize?: string | null;
+
+  seventh_prize?: string | null;
+
+  eighth_prize?: string | null;
+
+  ninth_prize?: string | null;
+
   consolation_prize?: string | null;
 
   lower_prizes?: any;
@@ -37,10 +49,12 @@ export interface LotteryResultRow {
 
   draw_date?: string | null;
 
-live_updates?: {
-  time: string;
-  message: string;
-}[] | null;
+  live_updates?:
+    | {
+        time: string;
+        message: string;
+      }[]
+    | null;
 }
 
 const supabase = createClient(
@@ -62,42 +76,77 @@ export function mapLotteryResultRow(
 
     drawNumber: row.draw_no,
 
-    date: row.draw_date || row.created_at,
+    date:
+      row.draw_date ||
+      row.created_at,
 
-    firstPrize: row.first_prize,
+    firstPrize:
+      row.first_prize || "",
 
-    secondPrize: row.second_prize || "",
+    secondPrize:
+      row.second_prize || "",
 
-    thirdPrize: row.third_prize || "",
+    thirdPrize:
+      row.third_prize || "",
 
-    consolationPrizes: row.consolation_prize
-      ? row.consolation_prize.split(",")
-      : [],
+    fourthPrize:
+      row.fourth_prize || "",
 
-    lowerPrizes: row.lower_prizes || {},
+    fifthPrize:
+      row.fifth_prize || "",
 
-    articleContent: row.article_content || "",
+    sixthPrize:
+      row.sixth_prize || "",
 
-    metaTitle: row.meta_title || "",
+    seventhPrize:
+      row.seventh_prize || "",
 
-    metaDescription: row.meta_description || "",
+    eighthPrize:
+      row.eighth_prize || "",
 
-    pdfUrl: row.pdf_url || "",
+    ninthPrize:
+      row.ninth_prize || "",
 
-    location: row.location,
+    consolationPrizes:
+      row.consolation_prize
+        ? row.consolation_prize.split(",")
+        : [],
 
-    isLive: row.is_live,
+    lowerPrizes:
+      row.lower_prizes || {},
 
-    updatedAt: row.created_at,
+    articleContent:
+      row.article_content || "",
 
-    author: "Results Desk",
+    metaTitle:
+      row.meta_title || "",
 
-    authorRole: "Editor",
+    metaDescription:
+      row.meta_description || "",
+
+    pdfUrl:
+      row.pdf_url || "",
+
+    location:
+      row.location || "",
+
+    isLive:
+      row.is_live,
+
+    updatedAt:
+      row.created_at,
+
+    author:
+      "Results Desk",
+
+    authorRole:
+      "Editor",
 
     heroImage:
-  "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?w=1200&q=80",
+      "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?w=1200&q=80",
 
-live_updates: row.live_updates || [],
+    live_updates:
+      row.live_updates || [],
   };
 }
 
@@ -110,10 +159,15 @@ export async function fetchLotteryResults(): Promise<{
     const { data, error } = await supabase
       .from("lottery_results")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("created_at", {
+        ascending: false,
+      });
 
     if (error) {
-      console.error("[lottery_results]", error.message);
+      console.error(
+        "[lottery_results]",
+        error.message
+      );
 
       return {
         results: fallbackResults,
@@ -133,14 +187,18 @@ export async function fetchLotteryResults(): Promise<{
       results: (data as LotteryResultRow[]).map(
         mapLotteryResultRow
       ),
-
       source: "supabase",
     };
   } catch (err) {
     const message =
-      err instanceof Error ? err.message : "Unknown error";
+      err instanceof Error
+        ? err.message
+        : "Unknown error";
 
-    console.error("[lottery_results]", message);
+    console.error(
+      "[lottery_results]",
+      message
+    );
 
     return {
       results: fallbackResults,
@@ -150,7 +208,9 @@ export async function fetchLotteryResults(): Promise<{
   }
 }
 
-export async function getLotteryResultBySlug(slug: string) {
+export async function getLotteryResultBySlug(
+  slug: string
+) {
   try {
     const { data } = await supabase
       .from("lottery_results")
@@ -160,7 +220,9 @@ export async function getLotteryResultBySlug(slug: string) {
 
     if (!data) return null;
 
-    return mapLotteryResultRow(data);
+    return mapLotteryResultRow(
+      data as LotteryResultRow
+    );
   } catch {
     return null;
   }

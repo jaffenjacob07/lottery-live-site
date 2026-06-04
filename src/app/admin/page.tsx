@@ -4,8 +4,16 @@ import { HomepageSettings } from "@/components/admin/HomepageSettings";
 import { LiveUpdateForm } from "@/components/admin/LiveUpdateForm";
 import { PdfUpload } from "@/components/admin/PdfUpload";
 import { ResultForm } from "@/components/admin/ResultForm";
+import { CreateDrawForm } from "@/components/admin/CreateDrawForm";
+
 import { lotteryResults } from "@/data/lottery";
-import { BarChart3, FileText, Radio } from "lucide-react";
+
+import {
+  BarChart3,
+  FileText,
+  Radio,
+} from "lucide-react";
+
 import Link from "next/link";
 
 export default function AdminPage() {
@@ -75,11 +83,19 @@ export default function AdminPage() {
         </div>
 
         <div className="space-y-8 max-w-3xl">
+
+          <CreateDrawForm />
+
           <ResultForm />
+
           <LiveUpdateForm />
+
           <PdfUpload />
+
           <CountdownSettings />
+
           <HomepageSettings />
+
         </div>
       </div>
     </div>
