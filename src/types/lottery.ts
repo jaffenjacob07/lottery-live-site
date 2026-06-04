@@ -27,17 +27,17 @@ export interface LotteryResult {
 
   thirdPrize: string;
 
-  fourthPrize: string;
+  fourthPrize?: string;
 
-  fifthPrize: string;
+ fifthPrize?: string;
 
-  sixthPrize: string;
+ sixthPrize?: string;
 
-  seventhPrize: string;
+ seventhPrize?: string;
 
-  eighthPrize: string;
+ eighthPrize?: string;
 
-  ninthPrize: string;
+ ninthPrize?: string;
 
   consolationPrizes: string[];
 
