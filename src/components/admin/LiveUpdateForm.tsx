@@ -22,12 +22,6 @@ export function LiveUpdateForm() {
     try {
       setLoading(true);
 
-      const currentTime = new Date().toLocaleTimeString("en-IN", {
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-      });
-
       const { data: result, error: fetchError } = await supabase
         .from("lottery_results")
         .select("id, live_updates")
@@ -42,7 +36,13 @@ export function LiveUpdateForm() {
       const existingUpdates = result.live_updates || [];
 
       const newUpdate = {
-        time: currentTime,
+        time: new Date()
+          .toLocaleTimeString("en-IN", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+          })
+          .toUpperCase(),
         message,
         type,
       };
