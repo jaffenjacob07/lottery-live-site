@@ -7,6 +7,7 @@ import { createClient } from "@/utils/supabase/client";
 export function LiveUpdateForm() {
   const supabase = createClient();
 
+  const [drawNo, setDrawNo] = useState("SK-53");
   const [type, setType] = useState("info");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,7 +26,7 @@ export function LiveUpdateForm() {
       const { data: result, error: fetchError } = await supabase
         .from("lottery_results")
         .select("id, live_updates")
-        .eq("draw_no", "SK-53")
+        .eq("draw_no", drawNo)
         .single();
 
       if (fetchError || !result) {
@@ -82,6 +83,35 @@ export function LiveUpdateForm() {
       </h2>
 
       <form className="space-y-4" onSubmit={handleSubmit}>
+
+        <div>
+          <label className="block text-sm font-medium text-navy-700 mb-1">
+            Lottery
+          </label>
+
+          <select
+            value={drawNo}
+            onChange={(e) => setDrawNo(e.target.value)}
+            className="w-full px-4 py-2.5 rounded-lg border border-navy-200"
+          >
+            <option value="SK-53">
+              Suvarna Keralam SK-53
+            </option>
+
+            <option value="KN-625">
+              Karunya Plus KN-625
+            </option>
+
+            <option value="SS-456">
+              Sthree Sakthi SS-456
+            </option>
+
+            <option value="KN-598">
+              Karunya Plus KN-598
+            </option>
+          </select>
+        </div>
+
         <div>
           <label className="block text-sm font-medium text-navy-700 mb-1">
             Type
@@ -118,8 +148,10 @@ export function LiveUpdateForm() {
           className="inline-flex items-center gap-2 bg-accent-red text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-accent-red-dark disabled:opacity-50"
         >
           <Plus className="h-4 w-4" />
+
           {loading ? "Posting..." : "Post Update"}
         </button>
+
       </form>
     </div>
   );
