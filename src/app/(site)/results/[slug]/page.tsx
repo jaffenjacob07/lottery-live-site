@@ -6,6 +6,7 @@ import { ShareButtons } from "@/components/result/ShareButtons";
 import { TicketChecker } from "@/components/result/TicketChecker";
 import { YesterdayCard } from "@/components/result/YesterdayCard";
 import { LiveBadge } from "@/components/ui/LiveBadge";
+import LiveUpdates from "@/components/result/LiveUpdates";
 
 import {
   fetchLotteryResults,
@@ -194,14 +195,18 @@ export default async function ResultDetailPage({
               </section>
 
               <PrizeCards
-                secondPrize={result.secondPrize}
-                thirdPrize={result.thirdPrize}
-                consolationPrizes={result.consolationPrizes}
-            />
+  secondPrize={result.secondPrize}
+  thirdPrize={result.thirdPrize}
+  consolationPrizes={result.consolationPrizes}
+/>
 
-              <LowerPrizeChips
-                numbers={result.lowerPrizes}
-              />
+<LiveUpdates
+  updates={result.live_updates || []}
+/>
+
+<LowerPrizeChips
+  numbers={result.lowerPrizes}
+/>
 
               <TicketChecker />
 

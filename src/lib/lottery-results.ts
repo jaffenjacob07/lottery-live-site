@@ -36,6 +36,11 @@ export interface LotteryResultRow {
   created_at: string;
 
   draw_date?: string | null;
+
+live_updates?: {
+  time: string;
+  message: string;
+}[] | null;
 }
 
 const supabase = createClient(
@@ -90,7 +95,9 @@ export function mapLotteryResultRow(
     authorRole: "Editor",
 
     heroImage:
-      "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?w=1200&q=80",
+  "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?w=1200&q=80",
+
+live_updates: row.live_updates || [],
   };
 }
 

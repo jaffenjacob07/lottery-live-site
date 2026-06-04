@@ -31,7 +31,12 @@ export interface LotteryResult {
 
   lowerPrizes: any;
 
-  pdfUrl?: string;
+live_updates?: {
+  time: string;
+  message: string;
+}[];
+
+pdfUrl?: string;
 
   yesterdaySlug?: string;
 
