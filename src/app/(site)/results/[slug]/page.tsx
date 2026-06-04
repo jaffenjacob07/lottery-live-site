@@ -79,8 +79,6 @@ export default async function ResultDetailPage({
 
   const result = await getLotteryResultBySlug(slug);
 
-console.log("LIVE UPDATES DATA:", result?.live_updates);
-
 if (!result) notFound();
 
   const formattedDate = formatDate(result.date);

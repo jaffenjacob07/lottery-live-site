@@ -7,7 +7,6 @@ import { createClient } from "@/utils/supabase/client";
 export function LiveUpdateForm() {
   const supabase = createClient();
 
-  const [time, setTime] = useState("");
   const [type, setType] = useState("info");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -15,15 +14,20 @@ export function LiveUpdateForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    if (!time || !message) {
-      alert("Please fill all fields");
+    if (!message) {
+      alert("Please enter a message");
       return;
     }
 
     try {
       setLoading(true);
 
-      // Get latest SK-53 row
+      const currentTime = new Date().toLocaleTimeString("en-IN", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+
       const { data: result, error: fetchError } = await supabase
         .from("lottery_results")
         .select("id, live_updates")
@@ -38,7 +42,7 @@ export function LiveUpdateForm() {
       const existingUpdates = result.live_updates || [];
 
       const newUpdate = {
-        time,
+        time: currentTime,
         message,
         type,
       };
@@ -58,7 +62,6 @@ export function LiveUpdateForm() {
 
       alert("Live update posted successfully");
 
-      setTime("");
       setMessage("");
       setType("info");
     } catch (err) {
@@ -79,39 +82,20 @@ export function LiveUpdateForm() {
       </h2>
 
       <form className="space-y-4" onSubmit={handleSubmit}>
+        <div>
+          <label className="block text-sm font-medium text-navy-700 mb-1">
+            Type
+          </label>
 
-        <div className="grid sm:grid-cols-2 gap-4">
-
-          <div>
-            <label className="block text-sm font-medium text-navy-700 mb-1">
-              Time
-            </label>
-
-            <input
-              type="text"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              placeholder="3:15 PM"
-              className="w-full px-4 py-2.5 rounded-lg border border-navy-200"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-navy-700 mb-1">
-              Type
-            </label>
-
-            <select
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-lg border border-navy-200"
-            >
-              <option value="info">Info</option>
-              <option value="result">Result</option>
-              <option value="alert">Alert</option>
-            </select>
-          </div>
-
+          <select
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            className="w-full px-4 py-2.5 rounded-lg border border-navy-200"
+          >
+            <option value="info">Info</option>
+            <option value="result">Result</option>
+            <option value="alert">Alert</option>
+          </select>
         </div>
 
         <div>
@@ -134,10 +118,8 @@ export function LiveUpdateForm() {
           className="inline-flex items-center gap-2 bg-accent-red text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-accent-red-dark disabled:opacity-50"
         >
           <Plus className="h-4 w-4" />
-
           {loading ? "Posting..." : "Post Update"}
         </button>
-
       </form>
     </div>
   );
