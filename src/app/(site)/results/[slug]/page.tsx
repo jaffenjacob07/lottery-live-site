@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { AuthorSection } from "@/components/result/AuthorSection";
 import { DownloadPdfButton } from "@/components/result/DownloadPdfButton";
 import { LowerPrizeChips } from "@/components/result/LowerPrizeChips";
@@ -77,7 +79,9 @@ export default async function ResultDetailPage({
 
   const result = await getLotteryResultBySlug(slug);
 
-  if (!result) notFound();
+console.log("LIVE UPDATES DATA:", result?.live_updates);
+
+if (!result) notFound();
 
   const formattedDate = formatDate(result.date);
 
