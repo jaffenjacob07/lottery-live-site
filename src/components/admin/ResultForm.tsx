@@ -42,6 +42,35 @@ export function ResultForm() {
     loadDraws();
   }, []);
 
+  useEffect(() => {
+    async function loadResult() {
+      if (!selected) return;
+
+      const { data, error } = await supabase
+        .from("lottery_results")
+        .select("*")
+        .eq("id", selected)
+        .single();
+
+      if (error || !data) return;
+
+      setFirstPrize(data.first_prize || "");
+      setSecondPrize(data.second_prize || "");
+      setThirdPrize(data.third_prize || "");
+      setFourthPrize(data.fourth_prize || "");
+      setFifthPrize(data.fifth_prize || "");
+      setSixthPrize(data.sixth_prize || "");
+      setSeventhPrize(data.seventh_prize || "");
+      setEighthPrize(data.eighth_prize || "");
+      setNinthPrize(data.ninth_prize || "");
+      setConsolationPrize(data.consolation_prize || "");
+      setLocation(data.location || "");
+      setIsLive(data.is_live ?? true);
+    }
+
+    loadResult();
+  }, [selected, supabase]);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
@@ -56,17 +85,17 @@ export function ResultForm() {
       const { error } = await supabase
         .from("lottery_results")
         .update({
-          first_prize: firstPrize,
-          second_prize: secondPrize,
-          third_prize: thirdPrize,
-          fourth_prize: fourthPrize,
-          fifth_prize: fifthPrize,
-          sixth_prize: sixthPrize,
-          seventh_prize: seventhPrize,
-          eighth_prize: eighthPrize,
-          ninth_prize: ninthPrize,
-          consolation_prize: consolationPrize,
-          location,
+          first_prize: firstPrize.trim(),
+          second_prize: secondPrize.trim(),
+          third_prize: thirdPrize.trim(),
+          fourth_prize: fourthPrize.trim(),
+          fifth_prize: fifthPrize.trim(),
+          sixth_prize: sixthPrize.trim(),
+          seventh_prize: seventhPrize.trim(),
+          eighth_prize: eighthPrize.trim(),
+          ninth_prize: ninthPrize.trim(),
+          consolation_prize: consolationPrize.trim(),
+          location: location.trim(),
           is_live: isLive,
         })
         .eq("id", selected);
@@ -199,7 +228,6 @@ export function ResultForm() {
             checked={isLive}
             onChange={(e) => setIsLive(e.target.checked)}
           />
-
           LIVE Result
         </label>
 
@@ -209,7 +237,6 @@ export function ResultForm() {
           className="inline-flex items-center gap-2 bg-navy-900 text-white px-6 py-2.5 rounded-lg"
         >
           <Save className="h-4 w-4" />
-
           {loading ? "Saving..." : "Update Result"}
         </button>
 
