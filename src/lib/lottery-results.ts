@@ -2,6 +2,7 @@ import { lotteryResults as fallbackResults } from "@/data/lottery";
 import { createClient } from "@supabase/supabase-js";
 import type { LotteryResult } from "@/types/lottery";
 
+
 export interface LotteryResultRow {
   id: string;
 
@@ -62,6 +63,22 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
+function parsePrizeNumbers(
+  value?: string | null
+): string[] {
+  if (!value) return [];
+
+  return value
+    .split(/[\s,\n\r]+/)
+    .map((n) => n.trim())
+    .filter(Boolean)
+    .filter(
+      (n) =>
+        n.toUpperCase() !== "EMPTY" &&
+        n.toUpperCase() !== "NULL"
+    );
+}
+
 export function mapLotteryResultRow(
   row: LotteryResultRow
 ): LotteryResult {
@@ -112,8 +129,67 @@ export function mapLotteryResultRow(
         ? row.consolation_prize.split(",")
         : [],
 
-    lowerPrizes:
-      row.lower_prizes || {},
+    lowerPrizes: {
+  fourth_prize: {
+    amount: "₹5000",
+    count: parsePrizeNumbers(
+      row.fourth_prize
+    ).length,
+    numbers: parsePrizeNumbers(
+      row.fourth_prize
+    ),
+  },
+
+  fifth_prize: {
+    amount: "₹2000",
+    count: parsePrizeNumbers(
+      row.fifth_prize
+    ).length,
+    numbers: parsePrizeNumbers(
+      row.fifth_prize
+    ),
+  },
+
+  sixth_prize: {
+    amount: "₹1000",
+    count: parsePrizeNumbers(
+      row.sixth_prize
+    ).length,
+    numbers: parsePrizeNumbers(
+      row.sixth_prize
+    ),
+  },
+
+  seventh_prize: {
+    amount: "₹500",
+    count: parsePrizeNumbers(
+      row.seventh_prize
+    ).length,
+    numbers: parsePrizeNumbers(
+      row.seventh_prize
+    ),
+  },
+
+  eighth_prize: {
+    amount: "₹100",
+    count: parsePrizeNumbers(
+      row.eighth_prize
+    ).length,
+    numbers: parsePrizeNumbers(
+      row.eighth_prize
+    ),
+  },
+
+  ninth_prize: {
+    amount: "₹50",
+    count: parsePrizeNumbers(
+      row.ninth_prize
+    ).length,
+    numbers: parsePrizeNumbers(
+      row.ninth_prize
+    ),
+  },
+},
 
     articleContent:
       row.article_content || "",
