@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { HeroSection } from "@/components/home/HeroSection";
 import { CountdownTimer } from "@/components/home/CountdownTimer";
 import { LotteryResultsSection } from "@/components/home/LotteryResultsSection";

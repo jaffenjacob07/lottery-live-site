@@ -9,6 +9,9 @@ export async function HeroSection() {
 
   const featured = results[0];
 
+console.log("HOME FEATURED RESULT");
+console.log(featured);
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-navy-950 via-navy-900 to-navy-800 text-white">
       <div className="absolute inset-0 opacity-10">
