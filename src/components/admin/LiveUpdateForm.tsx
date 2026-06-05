@@ -1,16 +1,38 @@
 "use client";
 
 import { Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 
 export function LiveUpdateForm() {
   const supabase = createClient();
 
-  const [drawNo, setDrawNo] = useState("SK-53");
+  const [drawNo, setDrawNo] = useState("");
   const [type, setType] = useState("info");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [draws, setDraws] = useState<any[]>([]);
+
+  useEffect(() => {
+    async function loadDraws() {
+      const { data } = await supabase
+        .from("lottery_results")
+        .select("lottery_name, draw_no")
+        .order("created_at", {
+          ascending: false,
+        });
+
+      if (data) {
+        setDraws(data);
+
+        if (data.length > 0) {
+          setDrawNo(data[0].draw_no);
+        }
+      }
+    }
+
+    loadDraws();
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -83,7 +105,6 @@ export function LiveUpdateForm() {
       </h2>
 
       <form className="space-y-4" onSubmit={handleSubmit}>
-
         <div>
           <label className="block text-sm font-medium text-navy-700 mb-1">
             Lottery
@@ -94,21 +115,15 @@ export function LiveUpdateForm() {
             onChange={(e) => setDrawNo(e.target.value)}
             className="w-full px-4 py-2.5 rounded-lg border border-navy-200"
           >
-            <option value="SK-53">
-              Suvarna Keralam SK-53
-            </option>
-
-            <option value="KN-625">
-              Karunya Plus KN-625
-            </option>
-
-            <option value="SS-456">
-              Sthree Sakthi SS-456
-            </option>
-
-            <option value="KN-598">
-              Karunya Plus KN-598
-            </option>
+            {draws.map((draw, index) => (
+         <option
+         key={`${draw.draw_no}-${index}`}
+         value={draw.draw_no}
+         >
+         {draw.lottery_name} {draw.draw_no}
+        </option>
+        ))}
+        
           </select>
         </div>
 
@@ -148,10 +163,8 @@ export function LiveUpdateForm() {
           className="inline-flex items-center gap-2 bg-accent-red text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-accent-red-dark disabled:opacity-50"
         >
           <Plus className="h-4 w-4" />
-
           {loading ? "Posting..." : "Post Update"}
         </button>
-
       </form>
     </div>
   );
