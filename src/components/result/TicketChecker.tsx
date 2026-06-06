@@ -28,128 +28,72 @@ export function TicketChecker({ result }: Props) {
     }
 
     // 1st Prize
-    if (
-      normalize(result.firstPrize) === entered
-    ) {
-      setMessage(
-        "🎉 1st Prize Winner - ₹1 Crore"
-      );
+    if (normalize(result.firstPrize) === entered) {
+      setMessage("🎉 1st Prize Winner - ₹1 Crore");
       return;
     }
 
     // 2nd Prize
-    if (
-      normalize(result.secondPrize) === entered
-    ) {
-      setMessage(
-        "🎉 2nd Prize Winner"
-      );
+    if (normalize(result.secondPrize) === entered) {
+      setMessage("🎉 2nd Prize Winner");
       return;
     }
 
     // 3rd Prize
-    if (
-      normalize(result.thirdPrize) === entered
-    ) {
-      setMessage(
-        "🎉 3rd Prize Winner"
-      );
+    if (normalize(result.thirdPrize) === entered) {
+      setMessage("🎉 3rd Prize Winner");
       return;
     }
 
-// Consolation Prize
-const consolationList =
-  result.consolationPrizes
-    ?.flatMap((item) =>
-      item
-        .match(/[A-Z]{2}\s?\d{6}/g) || []
-    ) || [];
+    // Consolation Prize
+    const consolationList =
+      result.consolationPrizes?.flatMap(
+        (item) => item.match(/[A-Z]{2}\s?\d{6}/g) || []
+      ) || [];
 
-if (
-  consolationList.some(
-    (ticketNumber) =>
-      normalize(ticketNumber) === entered
-  )
-) {
-  setMessage(
-    "🎉 Consolation Prize Winner - ₹5,000"
-  );
-  return;
-}
+    if (
+      consolationList.some(
+        (ticketNumber) => normalize(ticketNumber) === entered
+      )
+    ) {
+      setMessage("🎉 Consolation Prize Winner - ₹5,000");
+      return;
+    }
 
     const last4 = entered.slice(-4);
-
     const lower = result.lowerPrizes;
 
-    if (
-      lower?.fourth_prize?.numbers?.includes(
-        last4
-      )
-    ) {
-      setMessage(
-        "🎉 4th Prize Winner - ₹5,000"
-      );
+    if (lower?.fourth_prize?.numbers?.includes(last4)) {
+      setMessage("🎉 4th Prize Winner - ₹5,000");
       return;
     }
 
-    if (
-      lower?.fifth_prize?.numbers?.includes(
-        last4
-      )
-    ) {
-      setMessage(
-        "🎉 5th Prize Winner - ₹2,000"
-      );
+    if (lower?.fifth_prize?.numbers?.includes(last4)) {
+      setMessage("🎉 5th Prize Winner - ₹2,000");
       return;
     }
 
-    if (
-      lower?.sixth_prize?.numbers?.includes(
-        last4
-      )
-    ) {
-      setMessage(
-        "🎉 6th Prize Winner - ₹1,000"
-      );
+    if (lower?.sixth_prize?.numbers?.includes(last4)) {
+      setMessage("🎉 6th Prize Winner - ₹1,000");
       return;
     }
 
-    if (
-      lower?.seventh_prize?.numbers?.includes(
-        last4
-      )
-    ) {
-      setMessage(
-        "🎉 7th Prize Winner - ₹500"
-      );
+    if (lower?.seventh_prize?.numbers?.includes(last4)) {
+      setMessage("🎉 7th Prize Winner - ₹500");
       return;
     }
 
-    if (
-      lower?.eighth_prize?.numbers?.includes(
-        last4
-      )
-    ) {
-      setMessage(
-        "🎉 8th Prize Winner - ₹100"
-      );
+    if (lower?.eighth_prize?.numbers?.includes(last4)) {
+      setMessage("🎉 8th Prize Winner - ₹100");
       return;
     }
 
-    if (
-      lower?.ninth_prize?.numbers?.includes(
-        last4
-      )
-    ) {
-      setMessage(
-        "🎉 9th Prize Winner - ₹50"
-      );
+    if (lower?.ninth_prize?.numbers?.includes(last4)) {
+      setMessage("🎉 9th Prize Winner - ₹50");
       return;
     }
 
-    setMessage(
-      "❌ No winning prize found for this ticket."
-    );
+    setMessage("❌ No winning prize found for this ticket.");
   }
 
   return (
@@ -162,13 +106,13 @@ if (
       <div className="flex items-center gap-2 mb-4">
         <Ticket className="h-5 w-5 text-accent-red" />
         <h3 className="font-bold text-navy-900">
-          Check Today's Lottery Ticket
+          Check Today&apos;s Lottery Ticket
         </h3>
       </div>
 
-       <p className="text-sm text-navy-500 mb-4">
-         Checking against today's latest draw result.
-       </p>
+      <p className="text-sm text-navy-500 mb-4">
+        Checking against today&apos;s latest draw result.
+      </p>
 
       <form
         onSubmit={checkTicket}
@@ -177,9 +121,7 @@ if (
         <input
           type="text"
           value={ticket}
-          onChange={(e) =>
-            setTicket(e.target.value)
-          }
+          onChange={(e) => setTicket(e.target.value)}
           placeholder="RJ587609"
           className="flex-1 px-4 py-3 rounded-xl border border-navy-200 focus:border-accent-red focus:ring-2 focus:ring-accent-red/20 outline-none font-mono uppercase"
         />
