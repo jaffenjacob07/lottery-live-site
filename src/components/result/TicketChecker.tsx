@@ -65,8 +65,6 @@ const consolationList =
         .match(/[A-Z]{2}\s?\d{6}/g) || []
     ) || [];
 
-console.log(consolationList);
-
 if (
   consolationList.some(
     (ticketNumber) =>
