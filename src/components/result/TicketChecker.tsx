@@ -56,18 +56,23 @@ export function TicketChecker({ result }: Props) {
       );
       return;
     }
+    
+console.log(result.consolationPrizes);
+    // Consolation Prize
+const consolationList =
+  result.consolationPrizes || [];
 
-    // Consolation
-    if (
-      result.consolationPrizes?.some(
-        (n) => normalize(n) === entered
-      )
-    ) {
-      setMessage(
-        "🎉 Consolation Prize Winner - ₹5,000"
-      );
-      return;
-    }
+if (
+  consolationList.some(
+    (ticketNumber) =>
+      normalize(ticketNumber) === entered
+  )
+) {
+  setMessage(
+    "🎉 Consolation Prize Winner - ₹5,000"
+  );
+  return;
+}
 
     const last4 = entered.slice(-4);
 
