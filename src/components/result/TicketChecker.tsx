@@ -56,11 +56,16 @@ export function TicketChecker({ result }: Props) {
       );
       return;
     }
-    
-console.log(result.consolationPrizes);
-    // Consolation Prize
+
+// Consolation Prize
 const consolationList =
-  result.consolationPrizes || [];
+  result.consolationPrizes
+    ?.flatMap((item) =>
+      item
+        .match(/[A-Z]{2}\s?\d{6}/g) || []
+    ) || [];
+
+console.log(consolationList);
 
 if (
   consolationList.some(
