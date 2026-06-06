@@ -162,13 +162,13 @@ if (
       <div className="flex items-center gap-2 mb-4">
         <Ticket className="h-5 w-5 text-accent-red" />
         <h3 className="font-bold text-navy-900">
-          Check Your Ticket
+          Check Today's Lottery Ticket
         </h3>
       </div>
 
-      <p className="text-sm text-navy-500 mb-4">
-        Example: RJ587609
-      </p>
+       <p className="text-sm text-navy-500 mb-4">
+         Checking against today's latest draw result.
+       </p>
 
       <form
         onSubmit={checkTicket}
