@@ -210,7 +210,7 @@ if (!result) notFound();
   numbers={result.lowerPrizes}
 />
 
-              <TicketChecker />
+       <TicketChecker result={result} />
 
             </div>
 

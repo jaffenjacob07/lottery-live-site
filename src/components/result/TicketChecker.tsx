@@ -3,21 +3,146 @@
 import { motion } from "framer-motion";
 import { Search, Ticket } from "lucide-react";
 import { useState } from "react";
+import type { LotteryResult } from "@/types/lottery";
 
-export function TicketChecker() {
+interface Props {
+  result: LotteryResult;
+}
+
+export function TicketChecker({ result }: Props) {
   const [ticket, setTicket] = useState("");
-  const [message, setMessage] = useState<string | null>(null);
+  const [message, setMessage] = useState("");
 
-  const handleCheck = (e: React.FormEvent) => {
+  function normalize(input: string) {
+    return input.replace(/\s+/g, "").toUpperCase();
+  }
+
+  function checkTicket(e: React.FormEvent) {
     e.preventDefault();
-    if (!ticket.trim()) {
+
+    const entered = normalize(ticket);
+
+    if (!entered) {
       setMessage("Please enter your ticket number.");
       return;
     }
+
+    // 1st Prize
+    if (
+      normalize(result.firstPrize) === entered
+    ) {
+      setMessage(
+        "🎉 1st Prize Winner - ₹1 Crore"
+      );
+      return;
+    }
+
+    // 2nd Prize
+    if (
+      normalize(result.secondPrize) === entered
+    ) {
+      setMessage(
+        "🎉 2nd Prize Winner"
+      );
+      return;
+    }
+
+    // 3rd Prize
+    if (
+      normalize(result.thirdPrize) === entered
+    ) {
+      setMessage(
+        "🎉 3rd Prize Winner"
+      );
+      return;
+    }
+
+    // Consolation
+    if (
+      result.consolationPrizes?.some(
+        (n) => normalize(n) === entered
+      )
+    ) {
+      setMessage(
+        "🎉 Consolation Prize Winner - ₹5,000"
+      );
+      return;
+    }
+
+    const last4 = entered.slice(-4);
+
+    const lower = result.lowerPrizes;
+
+    if (
+      lower?.fourth_prize?.numbers?.includes(
+        last4
+      )
+    ) {
+      setMessage(
+        "🎉 4th Prize Winner - ₹5,000"
+      );
+      return;
+    }
+
+    if (
+      lower?.fifth_prize?.numbers?.includes(
+        last4
+      )
+    ) {
+      setMessage(
+        "🎉 5th Prize Winner - ₹2,000"
+      );
+      return;
+    }
+
+    if (
+      lower?.sixth_prize?.numbers?.includes(
+        last4
+      )
+    ) {
+      setMessage(
+        "🎉 6th Prize Winner - ₹1,000"
+      );
+      return;
+    }
+
+    if (
+      lower?.seventh_prize?.numbers?.includes(
+        last4
+      )
+    ) {
+      setMessage(
+        "🎉 7th Prize Winner - ₹500"
+      );
+      return;
+    }
+
+    if (
+      lower?.eighth_prize?.numbers?.includes(
+        last4
+      )
+    ) {
+      setMessage(
+        "🎉 8th Prize Winner - ₹100"
+      );
+      return;
+    }
+
+    if (
+      lower?.ninth_prize?.numbers?.includes(
+        last4
+      )
+    ) {
+      setMessage(
+        "🎉 9th Prize Winner - ₹50"
+      );
+      return;
+    }
+
     setMessage(
-      `Checking ${ticket.toUpperCase()}... Demo: No match found in today's published results.`
+      "❌ No winning prize found for this ticket."
     );
-  };
+  }
 
   return (
     <motion.div
@@ -28,20 +153,29 @@ export function TicketChecker() {
     >
       <div className="flex items-center gap-2 mb-4">
         <Ticket className="h-5 w-5 text-accent-red" />
-        <h3 className="font-bold text-navy-900">Check Your Ticket</h3>
+        <h3 className="font-bold text-navy-900">
+          Check Your Ticket
+        </h3>
       </div>
+
       <p className="text-sm text-navy-500 mb-4">
-        Enter your full ticket number (e.g. KA 458921) to check against today&apos;s
-        results.
+        Example: RJ587609
       </p>
-      <form onSubmit={handleCheck} className="flex flex-col sm:flex-row gap-2">
+
+      <form
+        onSubmit={checkTicket}
+        className="flex flex-col sm:flex-row gap-2"
+      >
         <input
           type="text"
           value={ticket}
-          onChange={(e) => setTicket(e.target.value)}
-          placeholder="e.g. KA 458921"
+          onChange={(e) =>
+            setTicket(e.target.value)
+          }
+          placeholder="RJ587609"
           className="flex-1 px-4 py-3 rounded-xl border border-navy-200 focus:border-accent-red focus:ring-2 focus:ring-accent-red/20 outline-none font-mono uppercase"
         />
+
         <button
           type="submit"
           className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-navy-900 text-white font-semibold hover:bg-accent-red transition-colors"
@@ -50,10 +184,11 @@ export function TicketChecker() {
           Check
         </button>
       </form>
+
       {message && (
-        <p className="mt-3 text-sm text-navy-600 bg-navy-100 rounded-lg px-4 py-2">
+        <div className="mt-4 rounded-xl bg-navy-100 p-4 font-medium">
           {message}
-        </p>
+        </div>
       )}
     </motion.div>
   );
