@@ -17,7 +17,7 @@ export default function RelatedResults({
   return (
     <section className="space-y-4">
       <h2 className="text-2xl font-bold text-navy-900">
-        Related Lottery Results
+        More Kerala Lottery Results
       </h2>
 
       <div className="rounded-2xl border border-navy-100 bg-white p-5 card-shadow">

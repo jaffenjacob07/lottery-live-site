@@ -96,7 +96,7 @@ const relatedResults = results
   .slice(0, 5)
   .map((r) => ({
     slug: r.slug,
-    title: `${r.name} ${r.drawNumber} Result`,
+    title: `${r.name} Result`
   }));
 
   const articleContent =
