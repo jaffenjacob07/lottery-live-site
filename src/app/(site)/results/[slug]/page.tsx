@@ -140,9 +140,11 @@ if (!result) notFound();
 
   <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-b border-navy-100">
     <AuthorSection
-      name={result.author}
-      role={result.authorRole}
-    />
+  name={result.author}
+  updatedAt={formatUpdatedTime(
+    result.updatedAt
+  )}
+/>
 
     <ShareButtons title={pageTitle} />
   </div>
