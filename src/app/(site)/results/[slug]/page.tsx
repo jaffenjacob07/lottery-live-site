@@ -9,6 +9,7 @@ import { TicketChecker } from "@/components/result/TicketChecker";
 import { YesterdayCard } from "@/components/result/YesterdayCard";
 import { LiveBadge } from "@/components/ui/LiveBadge";
 import LiveUpdates from "@/components/result/LiveUpdates";
+import FaqSection from "@/components/result/FaqSection";
 
 import {
   fetchLotteryResults,
@@ -212,7 +213,13 @@ if (!result) notFound();
   numbers={result.lowerPrizes}
 />
 
-       <TicketChecker result={result} />
+<TicketChecker result={result} />
+
+<FaqSection
+  lotteryName={result.name}
+  drawNumber={result.drawNumber}
+  firstPrize={result.firstPrize}
+/>
 
             </div>
 
