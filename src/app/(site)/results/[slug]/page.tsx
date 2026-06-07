@@ -136,18 +136,18 @@ if (!result) notFound();
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3">
 
-  <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-b border-navy-100">
-    <AuthorSection
-  name={result.author}
-  updatedAt={formatUpdatedTime(
-    result.updatedAt
-  )}
-/>
+  <div className="flex flex-wrap items-center justify-between gap-2 py-2 border-b border-navy-100">
+  <AuthorSection
+    name={result.author}
+    updatedAt={formatUpdatedTime(
+      result.updatedAt
+    )}
+  />
 
-    <ShareButtons title={pageTitle} />
-  </div>
+  <ShareButtons title={pageTitle} />
+</div>
 
           <div className="grid lg:grid-cols-3 gap-8">
 
