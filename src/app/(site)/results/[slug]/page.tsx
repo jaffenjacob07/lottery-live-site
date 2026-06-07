@@ -10,6 +10,7 @@ import { YesterdayCard } from "@/components/result/YesterdayCard";
 import { LiveBadge } from "@/components/ui/LiveBadge";
 import LiveUpdates from "@/components/result/LiveUpdates";
 import FaqSection from "@/components/result/FaqSection";
+import RelatedResults from "@/components/result/RelatedResults";
 
 import {
   fetchLotteryResults,
@@ -87,6 +88,16 @@ if (!result) notFound();
   const pageTitle =
     result.metaTitle ||
     `Kerala Lottery ${result.name} ${result.drawNumber} Result Today`;
+
+    const { results } = await fetchLotteryResults();
+
+const relatedResults = results
+  .filter((r) => r.slug !== result.slug)
+  .slice(0, 5)
+  .map((r) => ({
+    slug: r.slug,
+    title: `${r.name} ${r.drawNumber} Result`,
+  }));
 
   const articleContent =
     result.articleContent ||
@@ -219,6 +230,10 @@ if (!result) notFound();
   lotteryName={result.name}
   drawNumber={result.drawNumber}
   firstPrize={result.firstPrize}
+/>
+
+<RelatedResults
+  results={relatedResults}
 />
 
             </div>
