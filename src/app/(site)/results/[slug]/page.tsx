@@ -136,16 +136,16 @@ if (!result) notFound();
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
 
-          <AuthorSection
-            name={result.author}
-            role={result.authorRole}
-          />
+  <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-b border-navy-100">
+    <AuthorSection
+      name={result.author}
+      role={result.authorRole}
+    />
 
-          <div className="my-6">
-            <ShareButtons title={pageTitle} />
-          </div>
+    <ShareButtons title={pageTitle} />
+  </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
 
@@ -222,9 +222,11 @@ if (!result) notFound();
 
             </aside>
 
-          </div>
-        </div>
-      </article>
+          </div> {/* grid */}
+
+</div> {/* page container */}
+
+</article>
 
       <DownloadPdfButton pdfUrl={result.pdfUrl} />
     </>

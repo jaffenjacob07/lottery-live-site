@@ -1,46 +1,53 @@
 "use client";
 
-import { Facebook, Link2, MessageCircle, Twitter } from "lucide-react";
+import {
+  Facebook,
+  Link2,
+  MessageCircle,
+  Twitter,
+} from "lucide-react";
 
-export function ShareButtons({ title }: { title: string }) {
-  const encoded = encodeURIComponent(title);
+export function ShareButtons({
+  title,
+}: {
+  title: string;
+}) {
+  const copyLink = () => {
+    navigator.clipboard.writeText(
+      window.location.href
+    );
+  };
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex items-center gap-2">
       <button
         type="button"
-        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#1877F2] text-white text-sm font-medium hover:opacity-90"
-        aria-label="Share on Facebook"
+        className="w-10 h-10 rounded-lg bg-[#1877F2] text-white flex items-center justify-center"
       >
         <Facebook className="h-4 w-4" />
-        <span className="hidden sm:inline">Facebook</span>
       </button>
+
       <button
         type="button"
-        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-black text-white text-sm font-medium hover:opacity-90"
-        aria-label="Share on X"
+        className="w-10 h-10 rounded-lg bg-black text-white flex items-center justify-center"
       >
         <Twitter className="h-4 w-4" />
-        <span className="hidden sm:inline">X</span>
       </button>
+
       <button
         type="button"
-        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#25D366] text-white text-sm font-medium hover:opacity-90"
-        aria-label="Share on WhatsApp"
+        className="w-10 h-10 rounded-lg bg-[#25D366] text-white flex items-center justify-center"
       >
         <MessageCircle className="h-4 w-4" />
-        <span className="hidden sm:inline">WhatsApp</span>
       </button>
+
       <button
         type="button"
-        onClick={() => navigator.clipboard?.writeText(window.location.href)}
-        className="flex items-center gap-2 px-4 py-2 rounded-lg border border-navy-200 text-navy-700 text-sm font-medium hover:bg-navy-50"
-        aria-label="Copy link"
+        onClick={copyLink}
+        className="w-10 h-10 rounded-lg border border-navy-200 flex items-center justify-center"
       >
         <Link2 className="h-4 w-4" />
-        Copy Link
       </button>
-      <span className="sr-only">Share: {encoded}</span>
     </div>
   );
 }
