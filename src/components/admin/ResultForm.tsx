@@ -241,7 +241,7 @@ export function ResultForm() {
       const fileName = `${Date.now()}-${file.name}`;
 
       const { error } = await supabase.storage
-        .from("lottery-images")
+        .from("LOTTERY-IMAGES")
         .upload(fileName, file);
 
       if (error) {
@@ -253,7 +253,7 @@ export function ResultForm() {
       const {
         data: { publicUrl },
       } = supabase.storage
-        .from("lottery-images")
+        .from("LOTTERY-IMAGES")
         .getPublicUrl(fileName);
 
       setHeroImage(publicUrl);
