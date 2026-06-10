@@ -1,6 +1,6 @@
 "use client";
 
-import { Save } from "lucide-react";
+import { Save, Upload } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { getDraws, AdminDraw } from "@/lib/admin-draws";
@@ -25,6 +25,7 @@ export function ResultForm() {
   const [consolationPrize, setConsolationPrize] = useState("");
   const [location, setLocation] = useState("");
   const [isLive, setIsLive] = useState(true);
+  const [heroImage, setHeroImage] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -66,6 +67,7 @@ export function ResultForm() {
       setConsolationPrize(data.consolation_prize || "");
       setLocation(data.location || "");
       setIsLive(data.is_live ?? true);
+      setHeroImage(data.hero_image || "");
     }
 
     loadResult();
@@ -97,6 +99,7 @@ export function ResultForm() {
           consolation_prize: consolationPrize.trim(),
           location: location.trim(),
           is_live: isLive,
+          hero_image: heroImage,
         })
         .eq("id", selected);
 
@@ -216,20 +219,65 @@ export function ResultForm() {
         />
 
         <input
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          className="w-full px-4 py-2.5 rounded-lg border"
-        />
+  placeholder="Location"
+  value={location}
+  onChange={(e) => setLocation(e.target.value)}
+  className="w-full px-4 py-2.5 rounded-lg border"
+/>
 
-        <label className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked={isLive}
-            onChange={(e) => setIsLive(e.target.checked)}
-          />
-          LIVE Result
-        </label>
+<div>
+  <label className="block text-sm font-medium mb-2">
+    Hero Image
+  </label>
+
+  <input
+    type="file"
+    accept="image/*"
+    onChange={async (e) => {
+      const file = e.target.files?.[0];
+
+      if (!file) return;
+
+      const fileName = `${Date.now()}-${file.name}`;
+
+      const { error } = await supabase.storage
+        .from("lottery-images")
+        .upload(fileName, file);
+
+      if (error) {
+        console.error(error);
+        alert("Image upload failed");
+        return;
+      }
+
+      const {
+        data: { publicUrl },
+      } = supabase.storage
+        .from("lottery-images")
+        .getPublicUrl(fileName);
+
+      setHeroImage(publicUrl);
+    }}
+    className="w-full px-4 py-2.5 rounded-lg border"
+  />
+
+  {heroImage && (
+    <img
+      src={heroImage}
+      alt="Hero Preview"
+      className="mt-3 max-h-64 rounded-lg border"
+    />
+  )}
+</div>
+
+<label className="flex items-center gap-2">
+  <input
+    type="checkbox"
+    checked={isLive}
+    onChange={(e) => setIsLive(e.target.checked)}
+  />
+  LIVE Result
+</label>
 
         <button
           type="submit"
