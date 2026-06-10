@@ -11,6 +11,7 @@ import { LiveBadge } from "@/components/ui/LiveBadge";
 import LiveUpdates from "@/components/result/LiveUpdates";
 import FaqSection from "@/components/result/FaqSection";
 import RelatedResults from "@/components/result/RelatedResults";
+import Image from "next/image";
 
 import {
   fetchLotteryResults,
@@ -161,6 +162,18 @@ const relatedResults = results
   <ShareButtons title={pageTitle} />
 </div>
 
+{result.heroImage && (
+  <div className="mt-4 mb-6">
+    <Image
+      src={result.heroImage}
+      alt={`${result.name} ${result.drawNumber} Lottery Ticket`}
+      width={1200}
+      height={675}
+      priority
+      className="w-full rounded-2xl border border-navy-100 object-cover"
+    />
+  </div>
+)}
           <div className="grid lg:grid-cols-3 gap-8">
 
             <div className="lg:col-span-2 space-y-8">
