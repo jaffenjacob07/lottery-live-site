@@ -1,6 +1,6 @@
 "use client";
 
-import { Save, Upload } from "lucide-react";
+import { Save } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { getDraws, AdminDraw } from "@/lib/admin-draws";
