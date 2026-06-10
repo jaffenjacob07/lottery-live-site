@@ -40,6 +40,8 @@ export interface LotteryResultRow {
 
   pdf_url?: string | null;
 
+  hero_image?: string | null;
+
   seo_slug?: string | null;
 
   location: string;
@@ -218,7 +220,8 @@ export function mapLotteryResultRow(
     authorRole:
       "Editor",
 
-    heroImage:
+      heroImage:
+      row.hero_image ||
       "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?w=1200&q=80",
 
     live_updates:
