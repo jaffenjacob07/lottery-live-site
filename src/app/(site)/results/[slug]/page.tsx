@@ -134,15 +134,7 @@ const relatedResults = results
   `
 Kerala Lottery ${result.name} ${result.drawNumber} Result was announced today by the Kerala State Lottery Department.
 
-The first prize winning number for ${result.name} ${result.drawNumber} is ${result.firstPrize}. Ticket holders can verify their winning numbers using the official Kerala Lottery result published by the department.
-
-Apart from the first prize, the draw also includes second prize, third prize, consolation prize and multiple lower prize categories. The complete list of winning numbers is available below on this page.
-
-Kerala State Lotteries is one of the most trusted government lottery systems in India and conducts regular weekly draws. Thousands of participants check the results every week to verify whether their ticket numbers have won any prize.
-
-Players are advised to cross-check their ticket numbers carefully with the official PDF result before claiming any prize amount. Prize claims are subject to the rules and regulations of the Kerala State Lottery Department.
-
-Check the complete Kerala Lottery ${result.name} ${result.drawNumber} result, live updates, prize breakdown and official PDF download below.
+The first prize winning number for ${result.name} ${result.drawNumber} is ${result.firstPrize}. Check the complete winning numbers, prize breakdown and official PDF result below.
 `;
 
   return (
