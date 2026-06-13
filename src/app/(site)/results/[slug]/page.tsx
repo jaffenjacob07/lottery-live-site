@@ -51,26 +51,55 @@ export async function generateMetadata({
   if (!result) {
     return {
       title: "Result Not Found",
+      description: "Lottery result not found.",
     };
   }
 
-  return {
-    title:
-      result.metaTitle ||
-      `Kerala Lottery ${result.name} ${result.drawNumber} Result Today`,
+  const title =
+    result.metaTitle ||
+    `Kerala Lottery ${result.name} ${result.drawNumber} Result Today | First Prize ${result.firstPrize}`;
 
-    description:
-      result.metaDescription ||
-      `Kerala Lottery ${result.name} ${result.drawNumber} result today. First prize winning number ${result.firstPrize}.`,
+  const description =
+    result.metaDescription ||
+    `Check Kerala Lottery ${result.name} ${result.drawNumber} Result Today. First Prize ${result.firstPrize}, Second Prize ${result.secondPrize}. View complete winning numbers, live updates and PDF results.`;
+
+  const canonicalUrl = `https://keralaliveresults.in/results/${result.slug}`;
+
+  return {
+    title,
+    description,
+
+    alternates: {
+      canonical: canonicalUrl,
+    },
 
     openGraph: {
-      title:
-        result.metaTitle ||
-        `${result.name} ${result.drawNumber} Live Result`,
+      title,
+      description,
+      url: canonicalUrl,
+      siteName: "Kerala Live Results",
+      locale: "en_IN",
+      type: "article",
+      images: [
+        {
+          url: result.heroImage,
+          width: 1200,
+          height: 630,
+          alt: `${result.name} ${result.drawNumber}`,
+        },
+      ],
+    },
 
-      description: result.metaDescription || "",
-
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
       images: [result.heroImage],
+    },
+
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }
@@ -87,8 +116,8 @@ if (!result) notFound();
   const formattedDate = formatDate(result.date);
 
   const pageTitle =
-    result.metaTitle ||
-    `Kerala Lottery ${result.name} ${result.drawNumber} Result Today`;
+  result.metaTitle ||
+  `Kerala Lottery ${result.name} ${result.drawNumber} Result Today | First Prize ${result.firstPrize}`;
 
     const { results } = await fetchLotteryResults();
 
@@ -101,8 +130,20 @@ const relatedResults = results
   }));
 
   const articleContent =
-    result.articleContent ||
-    `Kerala Lottery ${result.name} ${result.drawNumber} result declared today.`;
+  result.articleContent ||
+  `
+Kerala Lottery ${result.name} ${result.drawNumber} Result was announced today by the Kerala State Lottery Department.
+
+The first prize winning number for ${result.name} ${result.drawNumber} is ${result.firstPrize}. Ticket holders can verify their winning numbers using the official Kerala Lottery result published by the department.
+
+Apart from the first prize, the draw also includes second prize, third prize, consolation prize and multiple lower prize categories. The complete list of winning numbers is available below on this page.
+
+Kerala State Lotteries is one of the most trusted government lottery systems in India and conducts regular weekly draws. Thousands of participants check the results every week to verify whether their ticket numbers have won any prize.
+
+Players are advised to cross-check their ticket numbers carefully with the official PDF result before claiming any prize amount. Prize claims are subject to the rules and regulations of the Kerala State Lottery Department.
+
+Check the complete Kerala Lottery ${result.name} ${result.drawNumber} result, live updates, prize breakdown and official PDF download below.
+`;
 
   return (
     <>
