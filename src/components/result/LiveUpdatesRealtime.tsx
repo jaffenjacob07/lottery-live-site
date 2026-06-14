@@ -40,16 +40,23 @@ export default function LiveUpdatesRealtime({
           table: "lottery_results",
         },
         (payload) => {
-          const row = payload.new as any;
-
-          if (row.id !== resultId) return;
-
-          setUpdates(
-            row.live_updates || []
-          );
-        }
+            console.log(
+              "Realtime payload:",
+              payload
+            );
+          
+            const row = payload.new as any;
+          
+            if (row.id !== resultId) return;
+          
+            setUpdates(
+              row.live_updates || []
+            );
+          }
       )
-      .subscribe();
+      .subscribe((status) => {
+        console.log("Realtime status:", status);
+      });      
 
     return () => {
       supabase.removeChannel(channel);
