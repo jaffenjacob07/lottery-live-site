@@ -23,6 +23,9 @@ export default function LiveUpdatesRealtime({
   resultId,
   initialUpdates,
 }: Props) {
+
+    console.log("LiveUpdatesRealtime mounted");
+    
   const [updates, setUpdates] =
     useState(initialUpdates);
 
