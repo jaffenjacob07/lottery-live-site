@@ -23,32 +23,65 @@ export default async function TodayLivePage() {
           </p>
 
           {liveResult ? (
-            <div className="mt-6 p-6 rounded-xl bg-navy-900 text-white">
+  <>
+    <div className="mt-6 p-6 rounded-xl bg-navy-900 text-white">
 
-              <p className="text-sm uppercase opacity-70">
-                Active Draw
-              </p>
+      <p className="text-sm uppercase opacity-70">
+        Active Draw
+      </p>
 
-              <h2 className="text-2xl font-bold mt-2">
-                {liveResult.name}{" "}
-                {liveResult.drawNumber}
-              </h2>
+      <h2 className="text-2xl font-bold mt-2">
+        {liveResult.name}{" "}
+        {liveResult.drawNumber}
+      </h2>
 
-              <p className="mt-4">
-                First Prize:
-                <span className="font-bold ml-2">
-                  {liveResult.firstPrize}
-                </span>
-              </p>
+      <p className="mt-4">
+        First Prize:
+        <span className="font-bold ml-2">
+          {liveResult.firstPrize}
+        </span>
+      </p>
 
-              <Link
-                href={`/results/${liveResult.slug}`}
-                className="inline-block mt-5 px-4 py-2 rounded-lg bg-white text-navy-900 font-semibold"
-              >
-                View Full Result →
-              </Link>
-            </div>
-          ) : (
+      <Link
+        href={`/results/${liveResult.slug}`}
+        className="inline-block mt-5 px-4 py-2 rounded-lg bg-white text-navy-900 font-semibold"
+      >
+        View Full Result →
+      </Link>
+    </div>
+
+    {liveResult.live_updates &&
+      liveResult.live_updates.length > 0 && (
+        <div className="mt-6 bg-white border rounded-xl p-5">
+
+          <h3 className="text-lg font-bold mb-4">
+            🔴 Live Updates
+          </h3>
+
+          <div className="space-y-4">
+
+            {[...liveResult.live_updates]
+              .reverse()
+              .map((update, index) => (
+                <div
+                  key={index}
+                  className="border-l-4 border-red-500 pl-4"
+                >
+                  <p className="text-sm font-semibold text-red-600">
+                    {update.time}
+                  </p>
+
+                  <p className="text-gray-700">
+                    {update.message}
+                  </p>
+                </div>
+              ))}
+
+          </div>
+        </div>
+      )}
+  </>
+) : (
             <div className="mt-6 p-6 rounded-xl bg-navy-900 text-white">
               <h2 className="text-xl font-bold">
                 Waiting for live draw...
