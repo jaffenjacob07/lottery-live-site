@@ -8,7 +8,7 @@ import { ShareButtons } from "@/components/result/ShareButtons";
 import { TicketChecker } from "@/components/result/TicketChecker";
 import { YesterdayCard } from "@/components/result/YesterdayCard";
 import { LiveBadge } from "@/components/ui/LiveBadge";
-import LiveUpdates from "@/components/result/LiveUpdates";
+import LiveUpdatesRealtime from "@/components/result/LiveUpdatesRealtime";
 import FaqSection from "@/components/result/FaqSection";
 import RelatedResults from "@/components/result/RelatedResults";
 import Image from "next/image";
@@ -262,8 +262,9 @@ The first prize winning number for ${result.name} ${result.drawNumber} is ${resu
   consolationPrizes={result.consolationPrizes}
 />
 
-<LiveUpdates
-  updates={result.live_updates || []}
+<LiveUpdatesRealtime
+  resultId={result.id}
+  initialUpdates={result.live_updates || []}
 />
 
 <LowerPrizeChips
