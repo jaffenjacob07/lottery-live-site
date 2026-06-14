@@ -306,3 +306,20 @@ export async function getLotteryResultBySlug(
     return null;
   }
 }
+export async function getLiveResult() {
+  try {
+    const { data } = await supabase
+      .from("lottery_results")
+      .select("*")
+      .eq("is_live", true)
+      .single();
+
+    if (!data) return null;
+
+    return mapLotteryResultRow(
+      data as LotteryResultRow
+    );
+  } catch {
+    return null;
+  }
+}
