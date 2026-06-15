@@ -22,9 +22,7 @@ const supabase = createClient(
 export default function LiveUpdatesRealtime({
   resultId,
   initialUpdates,
-}: Props) {
-
-    console.log("LiveUpdatesRealtime mounted");
+}: Props) {    
     
   const [updates, setUpdates] =
     useState(initialUpdates);
@@ -40,8 +38,7 @@ export default function LiveUpdatesRealtime({
           table: "lottery_results",
         },
         (payload) => {
-          console.log("Realtime payload:", payload);
-        
+                  
           const row = payload.new as any;
         
           if (row.id !== resultId) return;
@@ -51,10 +48,8 @@ export default function LiveUpdatesRealtime({
           );
         }
       )
-      .subscribe((status) => {
-        console.log("Realtime status:", status);
-      });      
-
+      .subscribe();
+      
     return () => {
       supabase.removeChannel(channel);
     };
