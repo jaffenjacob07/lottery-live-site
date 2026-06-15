@@ -40,19 +40,16 @@ export default function LiveUpdatesRealtime({
           table: "lottery_results",
         },
         (payload) => {
-            console.log(
-              "Realtime payload:",
-              payload
-            );
-          
-            const row = payload.new as any;
-          
-            if (row.id !== resultId) return;
-          
-            setUpdates(
-              row.live_updates || []
-            );
-          }
+          console.log("Realtime payload:", payload);
+        
+          const row = payload.new as any;
+        
+          if (row.id !== resultId) return;
+        
+          setUpdates(
+            [...(row.live_updates || [])]
+          );
+        }
       )
       .subscribe((status) => {
         console.log("Realtime status:", status);
