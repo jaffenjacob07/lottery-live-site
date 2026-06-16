@@ -10,7 +10,6 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/results", label: "Results" },
   { href: "/today-live", label: "Today Live" },
-  { href: "/admin", label: "Admin" },
 ];
 
 export function Navbar() {
