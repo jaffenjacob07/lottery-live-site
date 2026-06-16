@@ -317,6 +317,11 @@ export async function getLiveResult() {
       .limit(1)
       .single();
 
+    console.log("===== LIVE RESULT =====");
+    console.log(data?.draw_no);
+    console.log(data?.live_updates);
+    console.log("=======================");
+
     if (error || !data) {
       return null;
     }
@@ -324,7 +329,8 @@ export async function getLiveResult() {
     return mapLotteryResultRow(
       data as LotteryResultRow
     );
-  } catch {
+  } catch (err) {
+    console.error(err);
     return null;
   }
 }

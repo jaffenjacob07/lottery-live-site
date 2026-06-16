@@ -14,7 +14,7 @@ export default async function SiteLayout({
   ? [
       {
         id: "1",
-        text: `${todayDraw.name} ${todayDraw.drawNumber} draw result expected at 3:00 PM IST`,
+        text: `${todayDraw.name} ${todayDraw.drawNumber} draw result expected at 3:00 PM`,
       },
       {
         id: "2",
@@ -28,7 +28,7 @@ export default async function SiteLayout({
   : [
       {
         id: "1",
-        text: "Kerala Lottery draw result expected at 3:00 PM IST",
+        text: "Kerala Lottery draw result expected at 3:00 PM",
       },
     ];
 
