@@ -7,10 +7,13 @@ import Link from "next/link";
 export async function HeroSection() {
   const { results } = await fetchLotteryResults();
 
-  const featured = results[0];
+  const featured =
+    results.find((r) => r.isLive) ||
+    results[0];
 
-console.log("HOME FEATURED RESULT");
-console.log(featured);
+  if (!featured) {
+    return null;
+  }
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-navy-950 via-navy-900 to-navy-800 text-white">
@@ -33,15 +36,22 @@ console.log(featured);
           )}
 
           <p className="text-accent-red font-semibold text-sm uppercase tracking-widest mb-2">
-            Today&apos;s Live Draw
+            {featured.isLive
+              ? "Today's Live Draw"
+              : "Latest Lottery Result"}
           </p>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight mb-4">
-            {featured.name} {featured.drawNumber} Live Result
+            {featured.name} {featured.drawNumber}
+            {featured.isLive
+              ? " Live Result"
+              : " Result"}
           </h1>
 
           <p className="text-navy-200 text-base sm:text-lg mb-6">
-            Today&apos;s 3:00 PM draw — watch numbers update live
+            {featured.isLive
+              ? "Today's 3:00 PM draw — watch numbers update live"
+              : "Latest Kerala Lottery result and winning numbers"}
           </p>
 
           <div className="flex flex-wrap items-center gap-4 text-sm text-navy-300 mb-8">
@@ -52,7 +62,9 @@ console.log(featured);
             <span>·</span>
 
             <span suppressHydrationWarning>
-              {featured.date ? formatDate(featured.date) : "Today"}
+              {featured.date
+                ? formatDate(featured.date)
+                : "Today"}
             </span>
 
             <span className="flex items-center gap-1">
@@ -66,7 +78,10 @@ console.log(featured);
               href={`/results/${featured.slug}`}
               className="inline-flex items-center gap-2 bg-accent-red hover:bg-accent-red-dark text-white font-semibold px-6 py-3 rounded-xl transition-colors"
             >
-              Watch Live Result
+              {featured.isLive
+                ? "Watch Live Result"
+                : "View Result"}
+
               <ArrowRight className="h-4 w-4" />
             </Link>
 
