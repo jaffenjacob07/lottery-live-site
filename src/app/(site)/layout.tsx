@@ -11,18 +11,26 @@ export default async function SiteLayout({
   const todayDraw = await getTodaysDraw();
 
   const tickerItems = todayDraw
-    ? [
-        {
-          id: "today",
-          text: `${todayDraw.name} ${todayDraw.drawNumber} draw result expected at 3:00 PM IST`,
-        },
-      ]
-    : [
-        {
-          id: "today",
-          text: "Kerala Lottery draw result expected at 3:00 PM IST",
-        },
-      ];
+  ? [
+      {
+        id: "1",
+        text: `${todayDraw.name} ${todayDraw.drawNumber} draw result expected at 3:00 PM IST`,
+      },
+      {
+        id: "2",
+        text: `Today's lottery: ${todayDraw.name} ${todayDraw.drawNumber}`,
+      },
+      {
+        id: "3",
+        text: "Official Kerala Lottery results update live on this page",
+      },
+    ]
+  : [
+      {
+        id: "1",
+        text: "Kerala Lottery draw result expected at 3:00 PM IST",
+      },
+    ];
 
   return (
     <div className="min-h-screen flex flex-col">
