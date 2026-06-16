@@ -328,3 +328,29 @@ export async function getLiveResult() {
     return null;
   }
 }
+
+export async function getTodaysDraw() {
+  try {
+    const today = new Date()
+      .toISOString()
+      .split("T")[0];
+
+    const { data } = await supabase
+      .from("lottery_results")
+      .select("*")
+      .eq("draw_date", today)
+      .order("created_at", {
+        ascending: false,
+      })
+      .limit(1)
+      .single();
+
+    if (!data) return null;
+
+    return mapLotteryResultRow(
+      data as LotteryResultRow
+    );
+  } catch {
+    return null;
+  }
+}

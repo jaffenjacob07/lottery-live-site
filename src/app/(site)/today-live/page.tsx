@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { getLiveResult } from "@/lib/lottery-results";
+import { getTodaysDraw } from "@/lib/lottery-results";
 
 export default async function TodayLivePage() {
-  const liveResult = await getLiveResult();
+  const liveResult = await getTodaysDraw();
 
   return (
     <main className="min-h-screen bg-gray-50">
