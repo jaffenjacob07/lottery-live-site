@@ -1,6 +1,7 @@
 import { lotteryResults as fallbackResults } from "@/data/lottery";
 import { createClient } from "@supabase/supabase-js";
 import type { LotteryResult } from "@/types/lottery";
+import { PRIZE_STRUCTURES } from "@/lib/prize-structures";
 
 
 export interface LotteryResultRow {
@@ -84,6 +85,12 @@ function parsePrizeNumbers(
 export function mapLotteryResultRow(
   row: LotteryResultRow
 ): LotteryResult {
+
+  const prizeStructure =
+    PRIZE_STRUCTURES[
+      row.lottery_name as keyof typeof PRIZE_STRUCTURES
+    ] || PRIZE_STRUCTURES["Bhagyathara"];
+
   return {
     id: row.id,
 
@@ -126,14 +133,27 @@ export function mapLotteryResultRow(
     ninthPrize:
       row.ninth_prize || "",
 
-    consolationPrizes:
+      consolationPrizes:
       row.consolation_prize
         ? row.consolation_prize.split(",")
         : [],
+    
+    prizeAmounts: {
+      first: prizeStructure.first,
+      second: prizeStructure.second,
+      third: prizeStructure.third,
+      consolation: prizeStructure.consolation,
+      fourth: prizeStructure.fourth,
+      fifth: prizeStructure.fifth,
+      sixth: prizeStructure.sixth,
+      seventh: prizeStructure.seventh,
+      eighth: prizeStructure.eighth,
+      ninth: prizeStructure.ninth,
+    },
 
     lowerPrizes: {
   fourth_prize: {
-    amount: "₹5000",
+    amount: prizeStructure.fourth,
     count: parsePrizeNumbers(
       row.fourth_prize
     ).length,
@@ -143,7 +163,7 @@ export function mapLotteryResultRow(
   },
 
   fifth_prize: {
-    amount: "₹2000",
+    amount: prizeStructure.fifth,
     count: parsePrizeNumbers(
       row.fifth_prize
     ).length,
@@ -153,7 +173,7 @@ export function mapLotteryResultRow(
   },
 
   sixth_prize: {
-    amount: "₹1000",
+    amount: prizeStructure.sixth,
     count: parsePrizeNumbers(
       row.sixth_prize
     ).length,
@@ -163,7 +183,7 @@ export function mapLotteryResultRow(
   },
 
   seventh_prize: {
-    amount: "₹500",
+    amount: prizeStructure.seventh,
     count: parsePrizeNumbers(
       row.seventh_prize
     ).length,
@@ -173,7 +193,7 @@ export function mapLotteryResultRow(
   },
 
   eighth_prize: {
-    amount: "₹100",
+    amount: prizeStructure.eighth,
     count: parsePrizeNumbers(
       row.eighth_prize
     ).length,
@@ -183,7 +203,7 @@ export function mapLotteryResultRow(
   },
 
   ninth_prize: {
-    amount: "₹50",
+    amount: prizeStructure.ninth,
     count: parsePrizeNumbers(
       row.ninth_prize
     ).length,

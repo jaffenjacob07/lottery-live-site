@@ -29,26 +29,39 @@ export interface LotteryResult {
 
   fourthPrize?: string;
 
- fifthPrize?: string;
+  fifthPrize?: string;
 
- sixthPrize?: string;
+  sixthPrize?: string;
 
- seventhPrize?: string;
+  seventhPrize?: string;
 
- eighthPrize?: string;
+  eighthPrize?: string;
 
- ninthPrize?: string;
+  ninthPrize?: string;
+
+  prizeAmounts?: {
+    first: string;
+    second: string;
+    third: string;
+    consolation: string;
+    fourth: string;
+    fifth: string;
+    sixth: string;
+    seventh: string;
+    eighth: string;
+    ninth: string;
+  };
 
   consolationPrizes: string[];
 
   lowerPrizes: any;
 
-live_updates?: {
-  time: string;
-  message: string;
-}[];
+  live_updates?: {
+    time: string;
+    message: string;
+  }[];
 
-pdfUrl?: string;
+  pdfUrl?: string;
 
   yesterdaySlug?: string;
 

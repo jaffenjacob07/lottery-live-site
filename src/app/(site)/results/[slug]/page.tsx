@@ -239,9 +239,9 @@ The first prize winning number for ${result.name} ${result.drawNumber} is ${resu
 
                       <div className="bg-navy-950 rounded-[22px] p-8 text-center">
 
-                        <p className="text-xs uppercase tracking-[0.3em] text-gold-300 mb-3">
-                          FIRST PRIZE • ₹1 CRORE
-                        </p>
+                      <p className="text-xs uppercase tracking-[0.3em] text-gold-300 mb-3">
+                            FIRST PRIZE • {result.prizeAmounts?.first}
+                      </p>
 
                         <p className="text-5xl font-black text-white tracking-[0.2em]">
                           {result.firstPrize}
@@ -260,6 +260,7 @@ The first prize winning number for ${result.name} ${result.drawNumber} is ${resu
   secondPrize={result.secondPrize}
   thirdPrize={result.thirdPrize}
   consolationPrizes={result.consolationPrizes}
+  prizeAmounts={result.prizeAmounts}
 />
 
 <LiveUpdatesRealtime

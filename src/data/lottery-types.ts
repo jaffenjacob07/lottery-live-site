@@ -6,4 +6,11 @@ export const LOTTERY_TYPES = [
   "Suvarna Keralam",
   "Karunya",
   "Samrudhi",
+
+  "Summer Bumper",
+  "Vishu Bumper",
+  "Monsoon Bumper",
+  "Onam Bumper",
+  "Pooja Bumper",
+  "Christmas Bumper",
 ];
