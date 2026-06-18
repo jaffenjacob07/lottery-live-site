@@ -122,9 +122,14 @@ if (!result) notFound();
     const { results } = await fetchLotteryResults();
 
     const relatedResults = results
-    .filter((r) => r.slug !== result.slug)
-    .slice(0, 5)
-    .map((r) => ({
+  .filter((r) => r.slug !== result.slug)
+  .sort(
+    (a, b) =>
+      new Date(b.date).getTime() -
+      new Date(a.date).getTime()
+  )
+  .slice(0, 5)
+  .map((r) => ({
       slug: r.slug,
       name: r.name,
       drawNumber: r.drawNumber,

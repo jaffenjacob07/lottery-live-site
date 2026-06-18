@@ -20,7 +20,7 @@ export default function RelatedResults({
   return (
     <section className="space-y-4">
       <h2 className="text-2xl font-bold text-navy-900">
-        Recent Kerala Lottery Results
+      Latest Kerala Lottery Results
       </h2>
 
       <div className="rounded-2xl border border-navy-100 bg-white p-5 card-shadow">
@@ -58,14 +58,15 @@ export default function RelatedResults({
                     )}
                   </p>
 
-                  <p className="text-sm mt-2">
-                    <span className="text-navy-500">
-                      First Prize:
-                    </span>{" "}
-                    <span className="font-semibold text-navy-900">
-                      {item.firstPrize}
-                    </span>
-                  </p>
+                  <div className="mt-2">
+  <p className="text-[11px] uppercase tracking-wide text-navy-500">
+    First Prize
+  </p>
+
+  <p className="font-bold text-accent-red text-lg">
+    🏆 {item.firstPrize}
+  </p>
+</div>
 
                 </div>
 
