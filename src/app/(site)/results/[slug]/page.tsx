@@ -121,13 +121,16 @@ if (!result) notFound();
 
     const { results } = await fetchLotteryResults();
 
-const relatedResults = results
-  .filter((r) => r.slug !== result.slug)
-  .slice(0, 5)
-  .map((r) => ({
-    slug: r.slug,
-    title: `${r.name} Result`
-  }));
+    const relatedResults = results
+    .filter((r) => r.slug !== result.slug)
+    .slice(0, 5)
+    .map((r) => ({
+      slug: r.slug,
+      name: r.name,
+      drawNumber: r.drawNumber,
+      date: r.date,
+      firstPrize: r.firstPrize,
+    }));
 
   const articleContent =
   result.articleContent ||

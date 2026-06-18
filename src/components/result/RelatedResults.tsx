@@ -2,7 +2,10 @@ import Link from "next/link";
 
 interface RelatedResult {
   slug: string;
-  title: string;
+  name: string;
+  drawNumber: string;
+  date: string;
+  firstPrize: string;
 }
 
 interface Props {
@@ -17,7 +20,7 @@ export default function RelatedResults({
   return (
     <section className="space-y-4">
       <h2 className="text-2xl font-bold text-navy-900">
-        More Kerala Lottery Results
+        Recent Kerala Lottery Results
       </h2>
 
       <div className="rounded-2xl border border-navy-100 bg-white p-5 card-shadow">
@@ -27,25 +30,72 @@ export default function RelatedResults({
               key={item.slug}
               href={`/results/${item.slug}`}
               className="
-                flex
-                items-center
-                justify-between
+                block
                 rounded-xl
                 border
                 border-navy-100
-                px-4
-                py-3
+                p-4
                 hover:border-accent-red
-                hover:text-accent-red
+                hover:shadow-sm
                 transition
               "
             >
-              <span>{item.title}</span>
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex-1">
 
-              <span>→</span>
+                  <h3 className="font-semibold text-navy-900">
+                    {item.name} {item.drawNumber}
+                  </h3>
+
+                  <p className="text-sm text-navy-500 mt-1">
+                    {new Date(item.date).toLocaleDateString(
+                      "en-IN",
+                      {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      }
+                    )}
+                  </p>
+
+                  <p className="text-sm mt-2">
+                    <span className="text-navy-500">
+                      First Prize:
+                    </span>{" "}
+                    <span className="font-semibold text-navy-900">
+                      {item.firstPrize}
+                    </span>
+                  </p>
+
+                </div>
+
+                <span className="text-lg text-navy-400">
+                  →
+                </span>
+              </div>
             </Link>
           ))}
         </div>
+
+        <Link
+          href="/results"
+          className="
+            mt-4
+            flex
+            items-center
+            justify-center
+            rounded-xl
+            bg-navy-50
+            py-3
+            text-sm
+            font-semibold
+            text-navy-900
+            hover:bg-navy-100
+            transition
+          "
+        >
+          View All Results →
+        </Link>
       </div>
     </section>
   );
