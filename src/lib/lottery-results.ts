@@ -69,16 +69,23 @@ const supabase = createClient(
 function parsePrizeNumbers(
   value?: string | null
 ): string[] {
-  if (!value) return [];
+  if (
+    !value ||
+    value === "0" ||
+    value === "EMPTY"
+  ) {
+    return [];
+  }
 
   return value
-    .split(/[\s,\n\r]+/)
+    .split(/[\s,\n\r,]+/)
     .map((n) => n.trim())
     .filter(Boolean)
     .filter(
       (n) =>
         n.toUpperCase() !== "EMPTY" &&
-        n.toUpperCase() !== "NULL"
+        n.toUpperCase() !== "NULL" &&
+        n !== "0"
     );
 }
 
