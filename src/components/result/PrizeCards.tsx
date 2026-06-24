@@ -50,7 +50,7 @@ export function PrizeCards({
           </p>
 
           <p className="text-xl font-bold text-navy-900 tracking-wide">
-            {secondPrize || "Not Available"}
+          {secondPrize || "Awaiting Official Result"}
           </p>
         </motion.div>
 
@@ -71,7 +71,7 @@ export function PrizeCards({
           </p>
 
           <p className="text-xl font-bold text-navy-900 tracking-wide">
-            {thirdPrize || "Not Available"}
+          {thirdPrize || "Awaiting Official Result"}
           </p>
         </motion.div>
 
