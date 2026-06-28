@@ -192,15 +192,13 @@ The first prize winning number for ${result.name} ${result.drawNumber} is ${resu
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3">
 
-  <div className="flex flex-wrap items-center justify-between gap-2 py-2 border-b border-navy-100">
+        <div className="py-2 border-b border-navy-100">
   <AuthorSection
     name={result.author}
     updatedAt={formatUpdatedTime(
       result.updatedAt
     )}
   />
-
-  <ShareButtons title={pageTitle} />
 </div>
 
 {result.heroImage && (
@@ -223,23 +221,9 @@ The first prize winning number for ${result.name} ${result.drawNumber} is ${resu
 
                 <div className="bg-white rounded-2xl border border-navy-100 p-6 card-shadow">
 
-                  <h2 className="text-2xl font-bold text-navy-900 mb-5">
-                    {result.name} {result.drawNumber} Kerala Lottery Result Today
-                  </h2>
-
-                  <div className="prose prose-lg max-w-none prose-headings:text-navy-900 prose-p:text-navy-700">
-                    {articleContent
-                      .split("\n")
-                      .filter(Boolean)
-                      .map((paragraph, index) => (
-                        <p
-                          key={index}
-                          className="leading-8 mb-5"
-                        >
-                          {paragraph}
-                        </p>
-                      ))}
-                  </div>
+                <h2 className="text-2xl font-bold text-navy-900 mb-5">
+                      Winning Numbers
+               </h2>                 
 
                   <div className="mt-12 space-y-6">
 
@@ -271,6 +255,10 @@ The first prize winning number for ${result.name} ${result.drawNumber} is ${resu
   prizeAmounts={result.prizeAmounts}
 />
 
+<TicketChecker result={result} />
+
+<ShareButtons title={pageTitle} />
+
 <LiveUpdatesRealtime
   resultId={result.id}
   initialUpdates={result.live_updates || []}
@@ -280,13 +268,31 @@ The first prize winning number for ${result.name} ${result.drawNumber} is ${resu
   numbers={result.lowerPrizes}
 />
 
-<TicketChecker result={result} />
-
 <FaqSection
   lotteryName={result.name}
   drawNumber={result.drawNumber}
   firstPrize={result.firstPrize}
 />
+
+<section className="bg-white rounded-2xl border border-navy-100 p-6 card-shadow">
+  <h2 className="text-2xl font-bold text-navy-900 mb-5">
+    About This Result
+  </h2>
+
+  <div className="prose prose-lg max-w-none prose-headings:text-navy-900 prose-p:text-navy-700">
+    {articleContent
+      .split("\n")
+      .filter(Boolean)
+      .map((paragraph, index) => (
+        <p
+          key={index}
+          className="leading-8 mb-5"
+        >
+          {paragraph}
+        </p>
+      ))}
+    </div>
+</section>
 
 <RelatedResults
   results={relatedResults}
