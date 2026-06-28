@@ -171,6 +171,10 @@ The first prize winning number for ${result.name} ${result.drawNumber} is ${resu
     {result.isLive && <LiveBadge />}
   </div>
 
+  <h1 className="text-2xl sm:text-3xl lg:text-5xl font-black text-navy-900 leading-tight">
+  {pageTitle}
+</h1>
+
   <div className="text-sm text-navy-600">
     <p className="font-semibold text-navy-800">
       By Results Desk
