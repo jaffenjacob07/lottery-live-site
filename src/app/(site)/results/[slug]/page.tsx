@@ -206,7 +206,7 @@ The first prize winning number for ${result.name} ${result.drawNumber} is ${resu
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3">
         
 {result.heroImage && (
-  <div className="mt-4 mb-6">
+  <div className="mb-4">
     <Image
       src={result.heroImage}
       alt={`${result.name} ${result.drawNumber} Lottery Ticket`}
@@ -217,19 +217,19 @@ The first prize winning number for ${result.name} ${result.drawNumber} is ${resu
     />
   </div>
 )}
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-6">
 
-            <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-4">
 
               <section className="space-y-6">
 
                 <div className="bg-white rounded-2xl border border-navy-100 p-6 card-shadow">
 
-                <h2 className="text-2xl font-bold text-navy-900 mb-5">
+                <h2 className="text-2xl font-bold text-navy-900 mb-3">
                       Winning Numbers
                </h2>                 
 
-                  <div className="mt-12 space-y-6">
+               <div className="mt-4 space-y-6">
 
                     <div className="rounded-3xl gold-gradient p-[2px]">
 
