@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import { AuthorSection } from "@/components/result/AuthorSection";
+
 import { DownloadPdfButton } from "@/components/result/DownloadPdfButton";
 import { LowerPrizeChips } from "@/components/result/LowerPrizeChips";
 import { PrizeCards } from "@/components/result/PrizeCards";
@@ -166,41 +166,41 @@ The first prize winning number for ${result.name} ${result.drawNumber} is ${resu
               </span>
             </nav>
 
-            <div className="flex flex-wrap items-center gap-3 mb-3">
-              {result.isLive && <LiveBadge />}
+            <div className="space-y-3 mb-4">
+  <div>
+    {result.isLive && <LiveBadge />}
+  </div>
 
-              <span className="text-sm text-navy-500">
-                Updated{" "}
-                {formatUpdatedTime(result.updatedAt)}
-              </span>
-            </div>
+  <div className="text-sm text-navy-600">
+    <p className="font-semibold text-navy-800">
+      By Results Desk
+    </p>
 
-            <h1 className="text-2xl sm:text-3xl lg:text-5xl font-black text-navy-900 mb-4 leading-tight">
-              {pageTitle}
-            </h1>
+    <p className="mt-1 flex flex-wrap items-center gap-2">
+      <span>{formattedDate}</span>
 
-            <div className="flex flex-wrap gap-4 text-sm text-navy-600">
-              <span>{formattedDate}</span>
+      <span>•</span>
 
-              <span className="flex items-center gap-1">
-                <MapPin className="h-4 w-4 text-accent-red" />
-                {result.location}
-              </span>
-            </div>
+      <span className="flex items-center gap-1">
+        <MapPin className="h-4 w-4 text-accent-red" />
+        {result.location}
+      </span>
+
+      <span>•</span>
+
+      <span>
+        Updated {formatUpdatedTime(result.updatedAt)}
+      </span>
+    </p>
+  </div>
+
+</div>
+
           </div>
         </div>
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3">
-
-        <div className="py-2 border-b border-navy-100">
-  <AuthorSection
-    name={result.author}
-    updatedAt={formatUpdatedTime(
-      result.updatedAt
-    )}
-  />
-</div>
-
+        
 {result.heroImage && (
   <div className="mt-4 mb-6">
     <Image
