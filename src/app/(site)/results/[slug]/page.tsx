@@ -235,7 +235,7 @@ The first prize winning number for ${result.name} ${result.drawNumber} is ${resu
 
                       <div className="bg-navy-950 rounded-[22px] p-8 text-center">
 
-                      <p className="text-xs uppercase tracking-[0.3em] text-gold-300 mb-3">
+                      <p className="text-xs uppercase tracking-[0.3em] text-gold-400 mb-3">
                             FIRST PRIZE • {result.prizeAmounts?.first}
                       </p>
 
