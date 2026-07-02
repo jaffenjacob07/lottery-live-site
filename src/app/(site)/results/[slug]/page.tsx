@@ -145,9 +145,45 @@ Kerala Lottery ${result.name} ${result.drawNumber} Result was announced today by
 The first prize winning number for ${result.name} ${result.drawNumber} is ${result.firstPrize}. Check the complete winning numbers, prize breakdown and official PDF result below.
 `;
 
+const newsArticleSchema = {
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  headline: pageTitle,
+  description: result.metaDescription,
+  image: [result.heroImage],
+  datePublished: result.date,
+  dateModified: result.updatedAt,
+  author: {
+    "@type": "Organization",
+    name: "Kerala Live Results",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Kerala Live Results",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://keralaliveresults.in/logo.png",
+    },
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": `https://keralaliveresults.in/results/${result.slug}`,
+  },
+};
+
   return (
     <>
+
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify(newsArticleSchema),
+    }}
+  />
+
+    
       <article>
+      
         <div className="bg-navy-50 border-b border-navy-100">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6">
 
