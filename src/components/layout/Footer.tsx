@@ -1,9 +1,6 @@
 import { siteConfig } from "@/data/lottery";
 import Link from "next/link";
-<Link href="/about">About</Link>
-<Link href="/contact">Contact</Link>
-<Link href="/privacy-policy">Privacy Policy</Link>
-<Link href="/disclaimer">Disclaimer</Link>
+
 
 export function Footer() {
   return (
@@ -42,16 +39,42 @@ export function Footer() {
                   Today&apos;s Live
                 </Link>
               </li>
+              <li>
+    <Link href="/about" className="hover:text-white transition-colors">
+      About
+    </Link>
+  </li>
+
+  <li>
+    <Link href="/contact" className="hover:text-white transition-colors">
+      Contact
+    </Link>
+  </li>
+
+  <li>
+    <Link href="/privacy-policy" className="hover:text-white transition-colors">
+      Privacy Policy
+    </Link>
+  </li>
+
+  <li>
+    <Link href="/disclaimer" className="hover:text-white transition-colors">
+      Disclaimer
+    </Link>
+  </li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold text-white mb-4">Lotteries</h4>
-            <ul className="space-y-2 text-sm">
-              <li>Karunya Plus</li>
-              <li>Win-Win</li>
-              <li>Sthree Sakthi</li>
-              <li>Akshaya</li>
-            </ul>
+          <h4 className="font-semibold text-white mb-4">Lotteries</h4>
+<ul className="space-y-2 text-sm">
+  <li>Bhagyathara</li>
+  <li>Sthree Sakthi</li>
+  <li>Dhanalekshmi</li>
+  <li>Karunya Plus</li>
+  <li>Suvarna Keralam</li>
+  <li>Karunya</li>
+  <li>Samrudhi</li>
+</ul>
           </div>
           <div>
             <h4 className="font-semibold text-white mb-4">Disclaimer</h4>
