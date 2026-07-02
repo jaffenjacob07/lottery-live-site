@@ -1,5 +1,9 @@
 import { siteConfig } from "@/data/lottery";
 import Link from "next/link";
+<Link href="/about">About</Link>
+<Link href="/contact">Contact</Link>
+<Link href="/privacy-policy">Privacy Policy</Link>
+<Link href="/disclaimer">Disclaimer</Link>
 
 export function Footer() {
   return (
