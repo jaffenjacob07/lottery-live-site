@@ -5,6 +5,7 @@ import { Menu, Search, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -21,9 +22,13 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-14 sm:h-16">
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-navy-900 flex items-center justify-center">
-              <span className="text-white font-black text-sm sm:text-base">KL</span>
-            </div>
+          <Image
+           src="/icon.png"
+          alt="Kerala Lottery Live"
+          width={40}
+          height={40}
+          className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg"
+           />
             <div className="hidden xs:block">
               <p className="font-bold text-navy-900 text-sm sm:text-base leading-tight">
                 {siteConfig.name}
